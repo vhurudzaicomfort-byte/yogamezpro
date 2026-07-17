@@ -145,7 +145,3 @@ ol {
   background-attachment: fixed;
 }
 
-/* Econet logo: show the dark-canvas variant by default, blue variant in light theme */
-[data-econet='light'] { display: none; }
-[data-theme='light'] [data-econet='dark'] { display: none; }
-[data-theme='light'] [data-econet='light'] { display: block; }

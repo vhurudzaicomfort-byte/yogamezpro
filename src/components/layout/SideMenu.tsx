@@ -14,13 +14,20 @@ interface SideMenuProps {
   onClose: () => void;
 }
 
-const DESTINATIONS: { label: string; icon: IconName; to: string }[] = [
+type Dest = { label: string; icon: IconName; to: string };
+
+const PRIMARY: Dest[] = [
   { label: 'Home', icon: 'home', to: '/home' },
   { label: 'Profile', icon: 'user', to: '/profile' },
   { label: 'Leaderboard', icon: 'flag', to: '/leaderboard' },
   { label: 'Prizes', icon: 'gift', to: '/prizes' },
+];
+
+const SECONDARY: Dest[] = [
+  { label: 'How To', icon: 'sparkle', to: '/how-to' },
   { label: 'Ts & Cs', icon: 'edit', to: '/legal' },
   { label: "FAQ's", icon: 'chat', to: '/faq' },
+  { label: 'Privacy Policy', icon: 'shield', to: '/privacy' },
 ];
 
 /** Slide-in navigation drawer (preserves all production destinations §7). */
@@ -57,17 +64,28 @@ export function SideMenu({ open, onClose }: SideMenuProps) {
             aria-label="Navigation menu"
           >
             <div className={styles.top}>
-              <Logo height={28} />
+              <Logo height={28} surface="dark" />
               <button className={styles.close} onClick={onClose} aria-label="Close menu">
                 <Icon name="close" size={22} />
               </button>
             </div>
             <p className={styles.sub}>Games Portal</p>
 
-            <nav className={styles.links} aria-label="All destinations">
-              {DESTINATIONS.map((d) => (
+            <nav className={styles.links} aria-label="Primary">
+              {PRIMARY.map((d) => (
                 <button key={d.to} className={styles.link} onClick={() => go(d.to)}>
                   <span className={styles.linkIcon}><Icon name={d.icon} size={22} /></span>
+                  <span>{d.label}</span>
+                  <Icon name="chevronRight" size={18} className={styles.chev} />
+                </button>
+              ))}
+            </nav>
+
+            <p className={styles.groupLabel}>Help &amp; info</p>
+            <nav className={`${styles.links} ${styles.secondary}`} aria-label="Help and information">
+              {SECONDARY.map((d) => (
+                <button key={d.to} className={styles.link} onClick={() => go(d.to)}>
+                  <span className={styles.linkIcon}><Icon name={d.icon} size={20} /></span>
                   <span>{d.label}</span>
                   <Icon name="chevronRight" size={18} className={styles.chev} />
                 </button>
@@ -79,7 +97,7 @@ export function SideMenu({ open, onClose }: SideMenuProps) {
                 <Icon name="logout" size={20} />
                 Unsubscribe
               </button>
-              <EconetLogo height={22} />
+              <EconetLogo height={22} surface="dark" />
               <p className={styles.copy}>© 2024 YoGamezPro · Econet Wireless</p>
             </div>
           </motion.aside>

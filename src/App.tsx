@@ -18,6 +18,8 @@ const Search = lazy(() => import('./pages/Search').then((m) => ({ default: m.Sea
 const GameDetail = lazy(() => import('./pages/GameDetail').then((m) => ({ default: m.GameDetail })));
 const Legal = lazy(() => import('./pages/Legal').then((m) => ({ default: m.Legal })));
 const Faq = lazy(() => import('./pages/Faq').then((m) => ({ default: m.Faq })));
+const HowTo = lazy(() => import('./pages/HowTo').then((m) => ({ default: m.HowTo })));
+const Privacy = lazy(() => import('./pages/Privacy').then((m) => ({ default: m.Privacy })));
 const NotFound = lazy(() => import('./pages/NotFound').then((m) => ({ default: m.NotFound })));
 
 function Fallback() {
@@ -49,6 +51,8 @@ export function App() {
           <Route path="/game/:id" element={<GameDetail />} />
           <Route path="/legal" element={<Legal />} />
           <Route path="/faq" element={<Faq />} />
+          <Route path="/how-to" element={<HowTo />} />
+          <Route path="/privacy" element={<Privacy />} />
         </Route>
 
         <Route path="/404" element={<NotFound />} />

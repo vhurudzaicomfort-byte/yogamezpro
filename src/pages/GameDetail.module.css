@@ -5,21 +5,29 @@
   position: relative;
   display: grid;
   place-items: center;
-  min-height: 260px;
+  min-height: 300px;
   padding: calc(env(safe-area-inset-top, 0px) + 1rem) 1rem 2.5rem;
-  background: var(--art);
+  /* Rich vertical gradient from the game's own hue, deepening into the page
+     canvas so it fuses with no hard seam (works in both themes via --bg). */
+  background:
+    linear-gradient(180deg, var(--hue) 0%, color-mix(in srgb, var(--hue) 72%, #00263a) 46%, var(--bg) 100%);
   overflow: hidden;
   isolation: isolate;
 }
-.heroGlow {
-  position: absolute; inset: -30% 10% 30%;
-  background: radial-gradient(closest-side, rgba(255,255,255,0.4), transparent 70%);
-  z-index: -1;
+/* Atmospheric bloom, top-left light, a lighter tint of the same hue */
+.heroBloom {
+  position: absolute;
+  inset: -20% 0 30%;
+  z-index: 0;
+  background: radial-gradient(60% 55% at 42% 30%, color-mix(in srgb, var(--hue) 40%, white) 0%, transparent 70%);
+  opacity: 0.85;
 }
-.hero::after {
-  content: '';
-  position: absolute; inset: 0; z-index: -1;
-  background: linear-gradient(180deg, transparent 55%, var(--bg) 100%);
+/* Mandatory bottom scrim — guarantees contrast where art meets the body */
+.heroScrim {
+  position: absolute;
+  inset: 40% 0 0;
+  z-index: 1;
+  background: linear-gradient(180deg, transparent, rgba(0, 20, 32, 0.35));
 }
 .back {
   position: absolute;
@@ -29,14 +37,16 @@
   width: 42px; height: 42px;
   border-radius: 50%;
   color: #fff;
-  background: rgba(0,0,0,0.28);
+  background: rgba(0,0,0,0.32);
   backdrop-filter: blur(6px);
-  z-index: 2;
+  z-index: 3;
 }
-.back:hover { background: rgba(0,0,0,0.42); }
-.icon { filter: drop-shadow(0 16px 30px rgba(0,0,0,0.5)); }
+.back:hover { background: rgba(0,0,0,0.46); }
+/* Enlarged subject, allowed to bleed down into the body for depth */
+.heroArt { position: relative; z-index: 2; margin-bottom: -2.2rem; }
+.icon { filter: drop-shadow(0 22px 30px rgba(0, 0, 0, 0.55)); }
 
-.body { padding: 0 1rem; margin-top: -1rem; position: relative; display: flex; flex-direction: column; gap: 0.75rem; }
+.body { padding: 0 1rem; margin-top: 0.9rem; position: relative; display: flex; flex-direction: column; gap: 0.75rem; }
 .metaRow { display: flex; gap: 0.4rem; flex-wrap: wrap; }
 .title { font-size: 1.9rem; font-weight: 700; color: var(--text); line-height: 1.05; }
 .tagline { color: var(--text-muted); font-size: 0.95rem; }

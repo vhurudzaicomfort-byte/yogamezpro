@@ -5,18 +5,15 @@ import { GameRail } from '../components/game/GameRail';
 import { GameGrid } from '../components/game/GameGrid';
 import { Chip } from '../components/ui/Chip';
 import { useWheel } from '../hooks/useWheel';
-import { GAMES, FEATURED_ID, CATEGORIES } from '../config/catalogue';
+import { GAMES, CATEGORIES, RECENTLY_PLAYED_IDS, gamesByIds } from '../config/catalogue';
 import type { CategoryKey } from '../types';
 import styles from './Home.module.css';
 
-const featured = GAMES.find((g) => g.id === FEATURED_ID)!;
-
 /**
  * Recently-played history (correction §2). Empty array → the Jump Back In rail
- * is not rendered at all. Seeded with two titles here to represent a returning
- * player; a real build reads this from the play-history service.
+ * is not rendered at all. A real build reads this from the play-history service.
  */
-const recentlyPlayed = GAMES.filter((g) => g.id === 'cash-rider' || g.id === 'zuma');
+const recentlyPlayed = gamesByIds(RECENTLY_PLAYED_IDS);
 
 /** Home — exactly two sections: Jump Back In (if any) + All Games (§2). */
 export function Home() {
@@ -33,7 +30,7 @@ export function Home() {
 
   return (
     <div className={styles.home}>
-      <HeroBanner game={featured} />
+      <HeroBanner />
 
       <nav className={`${styles.chips} no-scrollbar`} aria-label="Categories">
         <Chip icon="grid" active onClick={() => navigate('/search')}>All</Chip>

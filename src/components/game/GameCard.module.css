@@ -2,10 +2,14 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  /* No overflow clip on the card: the artwork clips to the plate radius itself
+     and the info panel rounds its own base, so nothing imposes a mismatched
+     radius on the icon (correction pass 2 §4). Radius here only shapes shadow. */
   border-radius: var(--r-lg);
-  overflow: hidden;
-  background: var(--surface-solid);
-  border: 1px solid var(--border);
+  /* Transparent body + no border: the artwork's rounded top reveals the page
+     behind it (not a card-surface crescent), so the corner truly fuses. The
+     info panel carries the solid surface; elevation comes from the shadow. */
+  background: transparent;
   box-shadow: var(--shadow-2);
   cursor: pointer;
   isolation: isolate;
@@ -17,15 +21,16 @@
 .card:focus-visible { outline: none; box-shadow: var(--focus-ring); }
 
 /* ---- Artwork plate ----
-   Icons are square plates with their OWN baked corners. The art holds no
-   background colour, so nothing peeks past the plate's rounded corners; any
-   sliver at the card's rounded top is the card surface itself (correction §11). */
+   The card art clips its top corners to the plate's OWN corner radius
+   (--r-plate = 21.875%, both proportional to width) so the two curves are
+   identical and pixel-aligned — the seam is gone. No background peeks. */
 .art {
   position: relative;
   display: block;
   overflow: hidden;
   aspect-ratio: 1 / 1;
   background: transparent;
+  border-radius: var(--r-plate) var(--r-plate) 0 0;
 }
 .icon {
   display: block;
@@ -33,29 +38,50 @@
 }
 .card:hover .icon { transform: scale(1.04); }
 
+/* Compact Play affordance — solidifies on hover/focus, sits away from rating */
+.playFab {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(4, 18, 28, 0.55);
+  backdrop-filter: blur(4px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+  opacity: 0.85;
+  transition: background var(--dur-fast), transform var(--dur-fast), opacity var(--dur-fast);
+}
+.card:hover .playFab, .card:focus-visible .playFab {
+  opacity: 1;
+  transform: scale(1.08);
+  background: linear-gradient(180deg, var(--econet-cyan), var(--econet-cyan-600));
+  color: var(--text-on-accent);
+}
+
 /* ---- Badge ribbon (mounted, cut into the card edge) ---- */
 .badges { position: absolute; top: 12px; left: 0; z-index: 3; }
 
-/* ---- Info panel ---- */
-.info { display: flex; flex-direction: column; gap: 0.4rem; padding: 0.8rem 0.9rem 0.9rem; }
+/* ---- Info panel (rounds its own base) ---- */
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.75rem 0.9rem 0.85rem;
+  background: var(--surface-solid);
+  border-radius: 0 0 var(--r-lg) var(--r-lg);
+}
 .meta { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
 .catChip { padding: 0.22rem 0.55rem; font-size: 0.64rem; background: var(--surface-2); }
-.plays { display: inline-flex; align-items: center; gap: 3px; font-size: 0.72rem; color: var(--text-dim); font-weight: 600; }
-.plays svg { opacity: 0.7; }
+.rating { display: inline-flex; align-items: center; gap: 3px; }
+.ratingNum { font-weight: 700; font-size: 0.82rem; color: var(--text); font-variant-numeric: tabular-nums; }
+.plays { font-size: 0.72rem; color: var(--text-dim); font-weight: 600; }
 .title { font-size: 1.05rem; font-weight: 700; color: var(--text); line-height: 1.1; }
 .tagline { font-size: 0.82rem; color: var(--text-muted); line-height: 1.4; }
-.footer { display: flex; align-items: center; justify-content: space-between; margin-top: 0.2rem; }
-.rating { display: inline-flex; align-items: center; gap: 5px; }
-.ratingNum { font-weight: 700; font-size: 0.82rem; color: var(--gold); }
-.play {
-  display: inline-flex; align-items: center; gap: 5px;
-  font-family: var(--font-display); font-weight: 700; font-size: 0.82rem;
-  color: var(--text-on-accent);
-  background: linear-gradient(180deg, var(--econet-cyan), var(--econet-cyan-600));
-  padding: 0.32rem 0.75rem; border-radius: var(--r-pill);
-  transition: filter var(--dur-fast), transform var(--dur-fast);
-}
-.card:hover .play { filter: brightness(1.08); }
 
 /* ---- Variant: hero (full-bleed spotlight) ---- */
 .hero .title { font-size: 1.5rem; }
@@ -69,12 +95,14 @@
 .rail .title { font-size: 0.95rem; }
 .rail .tagline { display: none; }
 
-/* ---- Variant: grid (2-up) — square art (icons are square plates) ---- */
+/* ---- Variant: grid (2×2) — bigger cards, richer meta ---- */
+.grid .title { font-size: 1.15rem; }
+.grid .info { padding: 0.85rem 1rem 1rem; }
 
 /* ---- Variant: compact (search row / related) ---- */
 .compact { flex-direction: row; align-items: stretch; }
-.compact .art { aspect-ratio: 1 / 1; width: 84px; flex: none; }
-.compact .icon { }
-.compact .info { flex: 1; justify-content: center; padding: 0.6rem 0.8rem; }
+.compact .art { aspect-ratio: 1 / 1; width: 84px; flex: none; border-radius: var(--r-plate) 0 0 var(--r-plate); }
+.compact .playFab { display: none; }
+.compact .info { flex: 1; justify-content: center; padding: 0.6rem 0.8rem; border-radius: 0 var(--r-lg) var(--r-lg) 0; }
 .compact .tagline { display: block; -webkit-line-clamp: 1; line-clamp: 1; overflow: hidden; }
 .compact .badges { display: none; }

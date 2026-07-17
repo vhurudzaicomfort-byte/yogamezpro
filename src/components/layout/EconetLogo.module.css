@@ -1,0 +1,13 @@
+.econet { display: inline-flex; align-items: center; line-height: 0; }
+.econet img { display: block; }
+
+/* Auto (theme-driven): dark-surface variant by default, light variant in light theme */
+.econet img[data-econet='light'] { display: none; }
+:global([data-theme='light']) .econet:not(.forceDark):not(.forceLight) img[data-econet='dark'] { display: none; }
+:global([data-theme='light']) .econet:not(.forceDark):not(.forceLight) img[data-econet='light'] { display: block; }
+
+/* Forced surface */
+.forceDark img[data-econet='dark'] { display: block !important; }
+.forceDark img[data-econet='light'] { display: none !important; }
+.forceLight img[data-econet='light'] { display: block !important; }
+.forceLight img[data-econet='dark'] { display: none !important; }

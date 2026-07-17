@@ -6,39 +6,33 @@
   border-radius: var(--r-xl);
   overflow: hidden;
   isolation: isolate;
-  background: var(--grad-hero);
-  border: 1px solid rgba(91, 194, 231, 0.28);
+  /* Background derives from the chosen game's own plate hue (§3/§6). */
+  background:
+    linear-gradient(120deg, var(--hue) 0%, color-mix(in srgb, var(--hue) 62%, #00263a) 55%, var(--ink-deep) 100%);
+  border: 1px solid color-mix(in srgb, var(--hue) 45%, transparent);
   box-shadow: var(--shadow-3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   display: flex;
   align-items: center;
 }
-/* atmosphere layers */
-.rays {
+/* Atmospheric bloom, top-left light, lighter tint of the hue, behind subject */
+.bloom {
   position: absolute;
-  inset: -40% -10%;
-  z-index: -2;
-  background: conic-gradient(from 200deg at 78% 40%, transparent 0deg, rgba(91, 194, 231, 0.16) 30deg, transparent 60deg, rgba(242, 128, 40, 0.14) 120deg, transparent 160deg);
-  animation: swirl 22s linear infinite;
-}
-@keyframes swirl { to { transform: rotate(360deg); } }
-.orb {
-  position: absolute;
-  right: -30px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 220px;
-  height: 220px;
+  inset: -30% -10% auto auto;
+  width: 260px;
+  height: 260px;
   z-index: -1;
-  background: radial-gradient(closest-side, rgba(91, 194, 231, 0.5), transparent 70%);
-  filter: blur(6px);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--hue) 55%, white) 0%, transparent 70%);
+  opacity: 0.7;
+  filter: blur(4px);
 }
+/* Left scrim: guarantees the text block clears 4.5:1 over any hue */
 .rim {
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
   border-radius: inherit;
-  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.4);
-  background: linear-gradient(105deg, rgba(0, 20, 32, 0.5) 40%, transparent 70%);
+  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.35);
+  background: linear-gradient(100deg, rgba(0, 18, 30, 0.62) 42%, transparent 72%);
 }
 .body { position: relative; z-index: 2; max-width: 62%; display: flex; flex-direction: column; gap: 0.55rem; align-items: flex-start; }
 .kicker { align-self: flex-start; }

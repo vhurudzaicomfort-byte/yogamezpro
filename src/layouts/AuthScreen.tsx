@@ -24,8 +24,9 @@ export function AuthScreen({ children, showLegal = true, showBrand = true }: { c
         <footer className={styles.footer}>
           <EconetLogo height={24} />
           <p className={styles.legal}>
-            By continuing, you agree to be bound by the YoGamezPro service's{' '}
-            <a href="/legal">Terms &amp; Conditions</a> and <a href="/faq">FAQs</a>.
+            By continuing, you agree to the YoGamezPro service's{' '}
+            <a href="/legal">Terms &amp; Conditions</a>, <a href="/privacy">Privacy Policy</a>{' '}
+            and <a href="/faq">FAQs</a>.
           </p>
         </footer>
       )}

@@ -6,17 +6,13 @@ import styles from './GameCard.module.css';
 export function GameCardSkeleton({ variant = 'grid' }: { variant?: CardVariant }) {
   return (
     <div className={`${styles.card} ${styles[variant]}`} aria-hidden="true">
-      <div className={styles.art}><Skeleton width="100%" height="100%" radius={0} /></div>
+      <div className={styles.art}><Skeleton width="100%" height="100%" radius="var(--r-plate) var(--r-plate) 0 0" /></div>
       <div className={styles.info}>
         <div className={styles.meta}>
           <Skeleton width={54} height={16} radius="var(--r-pill)" />
-          <Skeleton width={34} height={12} />
+          <Skeleton width={64} height={14} />
         </div>
-        <Skeleton width="70%" height={18} />
-        <div className={styles.footer}>
-          <Skeleton width={40} height={14} />
-          <Skeleton width={54} height={22} radius="var(--r-pill)" />
-        </div>
+        <Skeleton width="72%" height={18} />
       </div>
     </div>
   );

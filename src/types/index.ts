@@ -14,6 +14,9 @@ export interface Game {
   /** Registered icon component key (see icons/games). */
   icon: 'cashRider' | 'cryptoCrush' | 'gamewin' | 'zuma';
   category: CategoryKey;
+  /** The game's own plate hue (hex). Single source of truth for card accents,
+   *  banner tint and the preview hero background — never a name/category switch. */
+  hue: string;
   tagline: string;
   /** 0–5, one decimal. */
   rating: number;

@@ -16,6 +16,8 @@ const TITLES: Record<string, { title?: string; brand?: boolean }> = {
   '/search': { title: 'Search' },
   '/legal': { title: 'Terms & Conditions' },
   '/faq': { title: 'FAQs' },
+  '/how-to': { title: 'How To' },
+  '/privacy': { title: 'Privacy Policy' },
 };
 
 /**

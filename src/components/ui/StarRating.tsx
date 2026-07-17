@@ -1,40 +1,6 @@
 import { useId, useState, type KeyboardEvent } from 'react';
+import { Star } from './Star';
 import styles from './StarRating.module.css';
-
-/**
- * A geometrically true 5-point star (correction §3): outer points at 72°
- * intervals from −90° (point up), inner radius = 0.382 × outer for classical
- * proportion, on a vertical axis with identical point lengths.
- */
-const OUTER = 9.4;
-const INNER = OUTER * 0.382;
-const C = 10;
-const STAR_PATH = (() => {
-  const pts: string[] = [];
-  for (let i = 0; i < 10; i++) {
-    const r = i % 2 === 0 ? OUTER : INNER;
-    const a = (-90 + i * 36) * (Math.PI / 180);
-    pts.push(`${(C + r * Math.cos(a)).toFixed(3)},${(C + r * Math.sin(a)).toFixed(3)}`);
-  }
-  return `M${pts.join('L')}Z`;
-})();
-
-/** One star, filled 0–1 (supports half/partial for aggregates). */
-function Star({ fill, size, gid }: { fill: number; size: number; gid: string }) {
-  const clamped = Math.max(0, Math.min(1, fill));
-  return (
-    <svg width={size} height={size} viewBox="0 0 20 20" className={styles.star} aria-hidden="true" focusable="false">
-      <defs>
-        <linearGradient id={gid}>
-          <stop offset={`${clamped * 100}%`} stopColor="var(--reward)" />
-          <stop offset={`${clamped * 100}%`} stopColor="transparent" />
-        </linearGradient>
-      </defs>
-      <path d={STAR_PATH} fill="none" stroke="var(--border-strong)" strokeWidth="1.1" />
-      <path d={STAR_PATH} fill={`url(#${gid})`} />
-    </svg>
-  );
-}
 
 interface StarRatingProps {
   /** Current value 0–5 (fractional allowed in readOnly for aggregates). */
@@ -49,10 +15,12 @@ interface StarRatingProps {
 }
 
 /**
- * Read-only aggregate display, or an accessible interactive control:
- * `role="radiogroup"` with five real radios, hover preview, click-to-set,
- * click-same-to-clear, arrow-key adjust, Enter/Space commit, visible focus
- * ring, and an aria-live confirmation on submit.
+ * Star display / input, rendered entirely from the shared `<Star>` component.
+ * Read-only mode shows a half-star-accurate aggregate. Interactive mode is a
+ * real `role="radiogroup"` with five radios — reserved for INPUT only
+ * (review composer / rating widget), never for card meta (correction §1).
+ * Hover preview, click-to-set, click-same-to-clear, arrow-key adjust, visible
+ * focus ring, aria-live confirmation on the wrapping composer.
  */
 export function StarRating({ value, readOnly, onChange, size = 20, ariaLabel = 'Rating', disabled }: StarRatingProps) {
   const gid = useId();
@@ -102,7 +70,7 @@ export function StarRating({ value, readOnly, onChange, size = 20, ariaLabel = '
           onBlur={() => setHover(null)}
           onClick={() => commit(v)}
         >
-          <Star fill={shown >= v ? 1 : 0} size={size} gid={`${gid}-i-${v}`} />
+          <Star state={shown >= v ? 'filled' : 'outline'} size={size} gid={`${gid}-i-${v}`} />
         </button>
       ))}
     </div>

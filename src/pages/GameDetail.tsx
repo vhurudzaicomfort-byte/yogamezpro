@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { GameIcon } from '../icons/games/GameIcon';
 import { Icon } from '../icons/Icon';
 import { Chip } from '../components/ui/Chip';
+import { Star } from '../components/ui/Star';
 import { Button } from '../components/ui/Button';
 import { GameCard } from '../components/game/GameCard';
 import { Reviews } from '../components/game/Reviews';
@@ -42,11 +43,19 @@ export function GameDetail() {
 
   return (
     <div className={styles.page}>
-      <div className={styles.hero} style={{ ['--art' as string]: cat.grad }}>
+      {/* Hero background derives from THIS game's own plate hue — one data
+          field, no category/name switch (correction pass 2 §6). */}
+      <div className={styles.hero} style={{ ['--hue' as string]: game.hue }}>
         <button className={styles.back} onClick={() => navigate(-1)} aria-label="Go back"><Icon name="arrowLeft" size={22} /></button>
-        <span className={styles.heroGlow} aria-hidden="true" />
-        <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: 'spring', stiffness: 200, damping: 18 }}>
-          <GameIcon game={game.icon} size={150} className={styles.icon} />
+        <span className={styles.heroBloom} aria-hidden="true" />
+        <span className={styles.heroScrim} aria-hidden="true" />
+        <motion.div
+          className={styles.heroArt}
+          initial={{ scale: 0.85, opacity: 0, y: 12 }}
+          animate={{ scale: 1, opacity: 1, y: 0 }}
+          transition={{ type: 'spring', stiffness: 200, damping: 18 }}
+        >
+          <GameIcon game={game.icon} size={224} className={styles.icon} />
         </motion.div>
       </div>
 
@@ -59,7 +68,7 @@ export function GameDetail() {
         <p className={styles.tagline}>{game.tagline}</p>
 
         <div className={styles.stats}>
-          <div className={styles.stat}><Icon name="star" variant="solid" size={18} /><span className="num">{shownRating.toFixed(1)}</span><small>Rating</small></div>
+          <div className={styles.stat}><Star state="filled" size={18} gid="detail-rating" /><span className="num">{shownRating.toFixed(1)}</span><small>Rating</small></div>
           <div className={styles.stat}><Icon name="user" size={18} /><span className="num">{formatPlays(game.plays)}</span><small>Players</small></div>
           <div className={styles.stat}><Icon name="bolt" size={18} /><span>Instant</span><small>No install</small></div>
         </div>

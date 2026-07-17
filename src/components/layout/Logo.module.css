@@ -7,7 +7,15 @@
   width: auto;
   display: block;
 }
-/* Theme-aware swap — both mounted, no flash on load/toggle */
+
+/* Auto (theme-driven) swap — both mounted, no flash on load/toggle */
 .logo img[data-logo='light'] { display: none; }
-:global([data-theme='light']) .logo img[data-logo='dark'] { display: none; }
-:global([data-theme='light']) .logo img[data-logo='light'] { display: block; }
+:global([data-theme='light']) .logo.auto img[data-logo='dark'],
+:global([data-theme='light']) .logo:not(.forceDark):not(.forceLight) img[data-logo='dark'] { display: none; }
+:global([data-theme='light']) .logo:not(.forceDark):not(.forceLight) img[data-logo='light'] { display: block; }
+
+/* Forced surface — wins over theme (for dark/light islands) */
+.forceDark img[data-logo='dark'] { display: block !important; }
+.forceDark img[data-logo='light'] { display: none !important; }
+.forceLight img[data-logo='light'] { display: block !important; }
+.forceLight img[data-logo='dark'] { display: none !important; }

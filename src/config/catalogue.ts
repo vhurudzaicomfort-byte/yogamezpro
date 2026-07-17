@@ -15,13 +15,24 @@ export const CATEGORIES: Record<CategoryKey, { label: string; grad: string }> = 
  * wordmarked vector icon. No placeholders, no filler (correction §11).
  */
 export const GAMES: Game[] = [
-  { id: 'crypto-crush', title: 'CryptoCrush', icon: 'cryptoCrush', category: 'puzzle', tagline: 'Match the coins, crush the chain.', rating: 4.7, plays: 128400 },
-  { id: 'cash-rider', title: 'Cash Rider', icon: 'cashRider', category: 'racing', tagline: 'Outrun traffic, bank the cash.', rating: 4.6, plays: 98230 },
-  { id: 'zuma', title: 'Zuma', icon: 'zuma', category: 'arcade', tagline: 'Fire, chain and clear the track.', rating: 4.8, plays: 156900 },
-  { id: 'gamewin', title: 'Gamewin', icon: 'gamewin', category: 'arcade', tagline: 'Spin up wins, climb the ranks.', rating: 4.5, plays: 74110, isNew: true },
+  { id: 'crypto-crush', title: 'CryptoCrush', icon: 'cryptoCrush', category: 'puzzle', hue: '#E67C28', tagline: 'Match the coins, crush the chain.', rating: 4.7, plays: 128400 },
+  { id: 'cash-rider', title: 'Cash Rider', icon: 'cashRider', category: 'racing', hue: '#257E5F', tagline: 'Outrun traffic, bank the cash.', rating: 4.6, plays: 98230 },
+  { id: 'zuma', title: 'Zuma', icon: 'zuma', category: 'arcade', hue: '#AC3D48', tagline: 'Fire, chain and clear the track.', rating: 4.8, plays: 156900 },
+  { id: 'gamewin', title: 'Gamewin', icon: 'gamewin', category: 'arcade', hue: '#374291', tagline: 'Spin up wins, climb the ranks.', rating: 4.5, plays: 74110, isNew: true },
 ];
 
 export const FEATURED_ID = 'crypto-crush';
+
+/**
+ * Demo play-history. In production these come from the play-history service.
+ * `RECENTLY_PLAYED` drives "Jump Back In" and the "Continue Playing" banner;
+ * `PLAYED_IDS` (a superset) drives "Haven't Tried Yet" discovery. Here three of
+ * four titles are played, so Gamewin is the untried one.
+ */
+export const RECENTLY_PLAYED_IDS = ['cash-rider', 'zuma'];
+export const PLAYED_IDS = ['cash-rider', 'zuma', 'crypto-crush'];
+export const gamesByIds = (ids: string[]): Game[] =>
+  ids.map((id) => GAMES.find((g) => g.id === id)).filter((g): g is Game => Boolean(g));
 
 /**
  * Subscription plans. The ZWG amounts are preserved exactly from the

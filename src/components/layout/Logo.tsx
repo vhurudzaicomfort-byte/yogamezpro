@@ -4,13 +4,18 @@ import styles from './Logo.module.css';
 
 /**
  * YoGamezPro brand mark — the real lockup cropped from the supplied 1080²
- * logo kit (no plate, no button styling, no effects). Light + dark variants
- * are both mounted and swapped by theme via CSS, so there is no flash of the
- * wrong-theme mark on load or toggle. Aspect ratio is preserved (880×140).
+ * logo kit (no plate, no recolour, no filter). Light + dark variants are both
+ * mounted; `surface` decides which shows:
+ *   'auto'  → follow the page theme (default)
+ *   'dark'  → always the dark-surface (light glyph) variant — for dark islands
+ *             like the side menu, which stay dark even in light theme
+ *   'light' → always the light-surface (dark glyph) variant
+ * No flash of the wrong-theme mark on load or toggle. Aspect ratio preserved.
  */
-export function Logo({ height = 26, className = '' }: { height?: number; className?: string }) {
+export function Logo({ height = 26, surface = 'auto', className = '' }: { height?: number; surface?: 'auto' | 'dark' | 'light'; className?: string }) {
+  const cls = surface === 'dark' ? styles.forceDark : surface === 'light' ? styles.forceLight : '';
   return (
-    <span className={`${styles.logo} ${className}`} role="img" aria-label="YoGamezPro" style={{ height }}>
+    <span className={`${styles.logo} ${cls} ${className}`} role="img" aria-label="YoGamezPro" style={{ height }}>
       <img src={darkMark} alt="" aria-hidden="true" data-logo="dark" style={{ height }} />
       <img src={lightMark} alt="" aria-hidden="true" data-logo="light" style={{ height }} />
     </span>

@@ -1,21 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HeroBanner } from '../components/game/HeroBanner';
-import { GameRail } from '../components/game/GameRail';
 import { GameGrid } from '../components/game/GameGrid';
 import { Chip } from '../components/ui/Chip';
 import { useWheel } from '../hooks/useWheel';
-import { GAMES, CATEGORIES, RECENTLY_PLAYED_IDS, gamesByIds } from '../config/catalogue';
+import { GAMES, CATEGORIES } from '../config/catalogue';
 import type { CategoryKey } from '../types';
 import styles from './Home.module.css';
 
 /**
- * Recently-played history (correction §2). Empty array → the Jump Back In rail
- * is not rendered at all. A real build reads this from the play-history service.
+ * Home — rotating hero + category chips + a single content block: All Games as
+ * a full 2×2 grid. With a four-title catalogue there is no separate "Jump Back
+ * In" rail; re-showing the same games above the grid would make the user scroll
+ * past them twice in one viewport.
  */
-const recentlyPlayed = gamesByIds(RECENTLY_PLAYED_IDS);
-
-/** Home — exactly two sections: Jump Back In (if any) + All Games (§2). */
 export function Home() {
   const navigate = useNavigate();
   const { offerIfEligible } = useWheel();
@@ -38,10 +36,6 @@ export function Home() {
           <Chip key={key} onClick={() => navigate(`/search?cat=${key}`)}>{CATEGORIES[key].label}</Chip>
         ))}
       </nav>
-
-      {recentlyPlayed.length > 0 && (
-        <GameRail title="Jump back in" games={recentlyPlayed} loading={loading} />
-      )}
 
       <section className={styles.gridSection}>
         <div className={styles.gridHead}>

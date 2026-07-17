@@ -38,50 +38,53 @@
 }
 .card:hover .icon { transform: scale(1.04); }
 
-/* Compact Play affordance — solidifies on hover/focus, sits away from rating */
-.playFab {
-  position: absolute;
-  right: 8px;
-  bottom: 8px;
-  z-index: 2;
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  color: #fff;
-  background: rgba(4, 18, 28, 0.55);
-  backdrop-filter: blur(4px);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
-  opacity: 0.85;
-  transition: background var(--dur-fast), transform var(--dur-fast), opacity var(--dur-fast);
-}
-.card:hover .playFab, .card:focus-visible .playFab {
-  opacity: 1;
-  transform: scale(1.08);
-  background: linear-gradient(180deg, var(--econet-cyan), var(--econet-cyan-600));
-  color: var(--text-on-accent);
-}
-
 /* ---- Badge ribbon (mounted, cut into the card edge) ---- */
 .badges { position: absolute; top: 12px; left: 0; z-index: 3; }
 
-/* ---- Info panel (rounds its own base) ---- */
+/* ---- Info panel (rounds its own base) ----
+   Hierarchy: TITLE leads, then one non-wrapping meta line. */
 .info {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: var(--sp-2);
   padding: 0.75rem 0.9rem 0.85rem;
   background: var(--surface-solid);
   border-radius: 0 0 var(--r-lg) var(--r-lg);
+  min-width: 0;
 }
-.meta { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
-.catChip { padding: 0.22rem 0.55rem; font-size: 0.64rem; background: var(--surface-2); }
-.rating { display: inline-flex; align-items: center; gap: 3px; }
-.ratingNum { font-weight: 700; font-size: 0.82rem; color: var(--text); font-variant-numeric: tabular-nums; }
-.plays { font-size: 0.72rem; color: var(--text-dim); font-weight: 600; }
-.title { font-size: 1.05rem; font-weight: 700; color: var(--text); line-height: 1.1; }
+.title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.15;
+  /* Truncate at the card width — never reflow. */
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .tagline { font-size: 0.82rem; color: var(--text-muted); line-height: 1.4; }
+
+/* Single meta line: chip · star · rating, left-aligned, fixed token gaps,
+   never wraps, all on one optical baseline. No play count, no separator dot. */
+.meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: var(--sp-2);
+  min-width: 0;
+}
+.catChip { flex: none; padding: 0.22rem 0.55rem; font-size: 0.64rem; background: var(--surface-2); }
+.rating { display: inline-flex; align-items: center; gap: var(--sp-1); flex: none; }
+/* Optically centre the star to the number's cap height (not its glyph box). */
+.star { display: block; margin-top: -1px; }
+.ratingNum {
+  font-weight: 700;
+  font-size: 0.82rem;
+  line-height: 1;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
 
 /* ---- Variant: hero (full-bleed spotlight) ---- */
 .hero .title { font-size: 1.5rem; }
@@ -102,7 +105,5 @@
 /* ---- Variant: compact (search row / related) ---- */
 .compact { flex-direction: row; align-items: stretch; }
 .compact .art { aspect-ratio: 1 / 1; width: 84px; flex: none; border-radius: var(--r-plate) 0 0 var(--r-plate); }
-.compact .playFab { display: none; }
 .compact .info { flex: 1; justify-content: center; padding: 0.6rem 0.8rem; border-radius: 0 var(--r-lg) var(--r-lg) 0; }
-.compact .tagline { display: block; -webkit-line-clamp: 1; line-clamp: 1; overflow: hidden; }
 .compact .badges { display: none; }

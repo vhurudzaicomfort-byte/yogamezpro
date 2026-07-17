@@ -1,0 +1,32 @@
+.wrap {
+  position: relative;
+  width: 100%;
+  max-width: var(--app-max);
+  margin-inline: auto;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3.5rem;
+  overflow: hidden;
+  background: var(--bg);
+}
+.rays {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(80% 50% at 50% 45%, rgba(43, 54, 138, 0.6), transparent 70%),
+    conic-gradient(from 0deg at 50% 45%, transparent, rgba(91, 194, 231, 0.1) 20deg, transparent 40deg, rgba(91, 194, 231, 0.1) 60deg, transparent 80deg);
+  animation: rot 30s linear infinite;
+}
+@keyframes rot { to { transform: rotate(360deg); } }
+.brand { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 0.8rem; }
+.tag {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}

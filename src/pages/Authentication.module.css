@@ -1,0 +1,20 @@
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.4rem;
+}
+.check {
+  display: grid;
+  place-items: center;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(91, 194, 231, 0.18), transparent);
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 0 24px rgba(91, 194, 231, 0.4));
+}
+.done { display: flex; flex-direction: column; align-items: center; gap: 0.7rem; width: 100%; }
+.done h1 { margin-top: 0.4rem; }
+.sub { color: var(--text-muted); font-size: 0.92rem; max-width: 300px; margin-bottom: 0.6rem; }

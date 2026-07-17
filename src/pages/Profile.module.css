@@ -1,0 +1,165 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  padding: var(--sp-4) 1rem 0;
+}
+
+/* Identity */
+.identity { display: flex; align-items: center; gap: var(--sp-4); }
+.avatarWrap { position: relative; flex: none; }
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(150deg, var(--econet-cyan), var(--econet-blue));
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.7rem;
+  box-shadow: var(--glow-cyan-soft);
+}
+.levelBadge {
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.1rem 0.55rem;
+  border-radius: var(--r-pill);
+  background: var(--gold);
+  color: #04222f;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.66rem;
+  white-space: nowrap;
+  box-shadow: var(--shadow-1);
+}
+.greeting { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
+.hi { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; color: var(--text); line-height: 1.1; }
+.congrats { font-size: 0.86rem; color: var(--text-muted); }
+.rankChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  align-self: flex-start;
+  margin-top: 0.3rem;
+  padding: 0.28rem 0.7rem;
+  border-radius: var(--r-pill);
+  background: rgba(91, 194, 231, 0.14);
+  border: 1px solid var(--border);
+  color: var(--brand);
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+/* Quick stats */
+.quickStats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-2);
+}
+.quickStat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+  padding: var(--sp-3) var(--sp-2);
+  border-radius: var(--r-lg);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  text-align: center;
+}
+.quickValue { font-family: var(--font-display); font-weight: 700; font-size: 1.25rem; color: var(--text); line-height: 1; }
+.quickLabel { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.03em; }
+
+/* Score card */
+.scoreCard {
+  padding: var(--sp-4);
+  border-radius: var(--r-lg);
+  background: linear-gradient(160deg, rgba(43, 54, 138, 0.28), var(--surface-1));
+  border: 1px solid var(--border);
+}
+.scoreRow { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); }
+.scoreBlock { display: flex; flex-direction: column; gap: 0.15rem; }
+.scoreRight { align-items: flex-end; text-align: right; }
+.scoreLabel { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; }
+.scoreValue { font-family: var(--font-display); font-weight: 700; font-size: 1.8rem; color: var(--brand); line-height: 1; }
+.beat { color: var(--gold); }
+.trophy {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  color: var(--gold);
+  background: rgba(245, 195, 68, 0.14);
+  border: 1px solid rgba(245, 195, 68, 0.3);
+  flex: none;
+}
+.bar {
+  margin-top: var(--sp-4);
+  height: 10px;
+  border-radius: var(--r-pill);
+  background: var(--surface-3);
+  overflow: hidden;
+}
+.barFill {
+  display: block;
+  height: 100%;
+  border-radius: var(--r-pill);
+  background: linear-gradient(90deg, var(--econet-cyan), var(--gold));
+}
+.beatHint { margin-top: var(--sp-2); font-size: 0.82rem; color: var(--text-muted); text-align: center; }
+
+/* Achievements */
+.achSection { display: flex; flex-direction: column; gap: var(--sp-3); }
+.sectionTitle { font-size: 1.2rem; font-weight: 700; color: var(--text); }
+.achGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-3);
+}
+@media (min-width: 400px) {
+  .achGrid { grid-template-columns: repeat(3, 1fr); }
+}
+.badge {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.3rem;
+  padding: var(--sp-4) var(--sp-2) var(--sp-3);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  background: var(--surface-1);
+}
+.badgeIcon {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  margin-bottom: 0.2rem;
+}
+.unlocked .badgeIcon {
+  color: #04222f;
+  background: linear-gradient(150deg, var(--gold), var(--reward));
+  box-shadow: 0 6px 16px rgba(242, 128, 40, 0.3);
+}
+.locked { opacity: 0.9; }
+.locked .badgeIcon { color: var(--text-muted); }
+.badgeLabel { font-family: var(--font-display); font-weight: 700; font-size: 0.86rem; color: var(--text); }
+.badgeDesc { font-size: 0.7rem; color: var(--text-muted); line-height: 1.35; }
+.badgePct {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.cta { margin-top: var(--sp-2); }

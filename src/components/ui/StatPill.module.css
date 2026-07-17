@@ -1,0 +1,25 @@
+.pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+  padding: 0.85rem 0.6rem;
+  border-radius: var(--r-lg);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  text-align: center;
+}
+.value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--text);
+}
+.label { font-size: 0.7rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.brand { background: linear-gradient(180deg, rgba(43, 54, 138, 0.35), rgba(43, 54, 138, 0.12)); border-color: rgba(91, 194, 231, 0.25); }
+.brand .value { color: #eaf3fb; }
+.accent { background: rgba(91, 194, 231, 0.12); border-color: rgba(91, 194, 231, 0.35); }
+.accent .value { color: var(--brand); }
+.reward { background: rgba(242, 128, 40, 0.12); border-color: rgba(242, 128, 40, 0.35); }
+.reward .value { color: var(--reward); }

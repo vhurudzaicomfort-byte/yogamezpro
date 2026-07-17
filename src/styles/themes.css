@@ -1,0 +1,70 @@
+/**
+ * Semantic theme tokens. Dark is the default gaming canvas (brief §3);
+ * light is a fully supported theme. Components reference ONLY these.
+ * WCAG AA verified — see documentation/STYLE_GUIDE.md contrast table.
+ */
+
+:root,
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: var(--ink-900);
+  --bg-elev: radial-gradient(120% 80% at 50% -10%, #063a56 0%, var(--ink-900) 60%);
+  --surface-1: rgba(255, 255, 255, 0.045);
+  --surface-2: rgba(255, 255, 255, 0.075);
+  --surface-3: rgba(255, 255, 255, 0.11);
+  --surface-solid: #0f2233;
+  --surface-glass: rgba(6, 22, 34, 0.72);
+  --border: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.2);
+
+  --text: #eaf3fb;
+  --text-muted: #9fb4c9;
+  --text-dim: #6c8199;
+  --text-on-brand: #ffffff;
+  --text-on-accent: #04222f;
+
+  --brand: var(--econet-cyan);
+  --brand-ink: var(--econet-blue);
+  --accent: var(--econet-cyan);
+  --danger: var(--signal-red);
+  --reward: var(--signal-orange);
+  --gold: var(--gold-500);
+
+  --focus-ring: 0 0 0 3px rgba(6, 22, 34, 1), 0 0 0 5px var(--econet-cyan), 0 0 20px rgba(91, 194, 231, 0.55);
+  --card-hover-shadow: 0 18px 46px rgba(0, 0, 0, 0.55), var(--glow-cyan-soft);
+  --skeleton-base: rgba(255, 255, 255, 0.06);
+  --skeleton-sheen: rgba(255, 255, 255, 0.14);
+}
+
+[data-theme='light'] {
+  color-scheme: light;
+
+  --bg: #eef5fb;
+  --bg-elev: radial-gradient(120% 80% at 50% -10%, #d5ecf8 0%, #eef5fb 60%);
+  --surface-1: #ffffff;
+  --surface-2: #f3f7fc;
+  --surface-3: #e7eef7;
+  --surface-solid: #ffffff;
+  --surface-glass: rgba(255, 255, 255, 0.82);
+  --border: rgba(11, 37, 63, 0.12);
+  --border-strong: rgba(11, 37, 63, 0.24);
+
+  --text: #0b2540;
+  --text-muted: #3f5872;
+  --text-dim: #6a7f97;
+  --text-on-brand: #ffffff;
+  --text-on-accent: #04222f;
+
+  --brand: var(--econet-blue);
+  --brand-ink: var(--econet-blue);
+  --accent: var(--econet-cyan-600);
+  --danger: var(--signal-red-600);
+  --reward: var(--signal-orange);
+  --gold: var(--gold-700);
+
+  --focus-ring: 0 0 0 3px #ffffff, 0 0 0 5px var(--econet-blue), 0 0 18px rgba(43, 54, 138, 0.35);
+  --card-hover-shadow: 0 18px 40px rgba(19, 47, 82, 0.18);
+  --skeleton-base: rgba(11, 37, 63, 0.07);
+  --skeleton-sheen: rgba(11, 37, 63, 0.03);
+}

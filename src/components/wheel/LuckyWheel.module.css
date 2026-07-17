@@ -1,0 +1,146 @@
+.wheelDialog {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.dismiss {
+  position: absolute;
+  top: -0.6rem;
+  right: -0.4rem;
+  z-index: 8;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  transition: color var(--dur-fast), background var(--dur-fast);
+}
+.dismiss:hover:not(:disabled) { color: var(--text); background: var(--surface-3); }
+.dismiss:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.head { text-align: center; display: flex; flex-direction: column; gap: 0.2rem; }
+.title { font-size: 1.7rem; font-weight: 700; color: var(--text); }
+.sub { font-size: 0.85rem; color: var(--text-muted); max-width: 280px; margin-inline: auto; }
+
+/* ---- Wheel stage ---- */
+.stage {
+  position: relative;
+  width: min(300px, 78vw);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+}
+.rim {
+  position: absolute;
+  inset: -3%;
+  border-radius: 50%;
+  background: conic-gradient(#ffe08a, #d98a1f, #ffe08a, #c9971f, #ffe08a, #d98a1f, #ffe08a);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.55), inset 0 0 0 4px rgba(0, 0, 0, 0.15);
+  z-index: 0;
+}
+.rim::after {
+  content: '';
+  position: absolute;
+  inset: 5%;
+  border-radius: 50%;
+  background: var(--ink-900);
+}
+.pointer {
+  position: absolute;
+  top: -5%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  width: 0;
+  height: 0;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-top: 28px solid var(--gold-500);
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.5));
+}
+.pointer::after {
+  content: '';
+  position: absolute;
+  top: -32px;
+  left: -7px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--gold-300);
+  box-shadow: 0 0 0 2px #c9971f;
+}
+.spinner { position: relative; z-index: 2; width: 92%; height: 92%; display: grid; place-items: center; }
+.svg { width: 100%; height: 100%; filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.4)); }
+.sliceLabel {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 12px;
+  fill: #fff;
+  paint-order: stroke;
+  stroke: rgba(0, 0, 0, 0.4);
+  stroke-width: 2.4px;
+  letter-spacing: 0.01em;
+}
+.winSlice { filter: drop-shadow(0 0 8px rgba(255, 224, 138, 0.9)); }
+.winSlice path { stroke: var(--gold-300); stroke-width: 3; }
+
+/* ---- Spin button (center hub) ---- */
+.spinBtn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 7;
+  display: grid;
+  place-items: center;
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: radial-gradient(circle at 40% 35%, #8ad6f0, #2b368a);
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.5), inset 0 2px 5px rgba(255, 255, 255, 0.5), 0 0 0 4px #fff;
+  transition: transform var(--dur-fast) var(--ease-out), filter var(--dur-fast);
+}
+.spinBtn:hover:not(:disabled) { transform: translate(-50%, -50%) scale(1.06); filter: brightness(1.08); }
+.spinBtn:active:not(:disabled) { transform: translate(-50%, -50%) scale(0.95); }
+.spinBtn:disabled { cursor: not-allowed; opacity: 0.8; }
+.spinBtn:focus-visible { outline: none; box-shadow: 0 0 0 4px #fff, 0 0 0 7px var(--econet-cyan); }
+.spinnerDots {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  animation: wspin 0.7s linear infinite;
+}
+@keyframes wspin { to { transform: rotate(360deg); } }
+
+/* ---- Result / reveal ---- */
+.result { min-height: 20px; width: 100%; }
+.reveal { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.35rem; }
+.trophy {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--grad-reward);
+  box-shadow: 0 8px 20px rgba(242, 128, 40, 0.5);
+  margin-bottom: 0.2rem;
+}
+.won { font-family: var(--font-display); font-weight: 700; font-size: 1.4rem; color: var(--text); }
+.miss { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; color: var(--text); }
+.wonSub { font-size: 0.84rem; color: var(--text-muted); max-width: 270px; }
+.capNote { text-align: center; font-size: 0.88rem; color: var(--text-muted); font-weight: 600; }
+
+.actions { width: 100%; }
+.terms { font-size: 0.72rem; color: var(--text-dim); text-align: center; max-width: 280px; }

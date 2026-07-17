@@ -1,0 +1,23 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.6rem;
+  padding: 2.5rem 1.5rem;
+}
+.badge {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  color: var(--brand);
+  background: rgba(91, 194, 231, 0.12);
+  border: 1px solid rgba(91, 194, 231, 0.3);
+  margin-bottom: 0.4rem;
+}
+.danger .badge { color: var(--danger); background: rgba(233, 34, 48, 0.12); border-color: rgba(233, 34, 48, 0.35); }
+.title { font-size: 1.2rem; font-weight: 700; color: var(--text); }
+.msg { font-size: 0.9rem; color: var(--text-muted); max-width: 300px; line-height: 1.5; }
+.action { margin-top: 0.6rem; }

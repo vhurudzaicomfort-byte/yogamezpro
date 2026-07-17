@@ -1,0 +1,28 @@
+.rail { margin-block: 1.4rem; }
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-inline: 1rem;
+  margin-bottom: 0.8rem;
+}
+.title { font-size: 1.2rem; font-weight: 700; color: var(--text); }
+.action {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--brand);
+  font-family: var(--font-display);
+  transition: opacity var(--dur-fast);
+}
+.action:hover { opacity: 0.75; }
+.track {
+  display: flex;
+  gap: 0.8rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 0.3rem 1rem;
+  scroll-padding-left: 1rem;
+  -webkit-overflow-scrolling: touch;
+}
+.slide { scroll-snap-align: start; }

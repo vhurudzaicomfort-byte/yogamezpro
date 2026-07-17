@@ -1,0 +1,44 @@
+.plans { display: flex; flex-direction: column; gap: 0.7rem; }
+.plan {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  width: 100%;
+  padding: 0.95rem 1.05rem;
+  border-radius: var(--r-md);
+  background: var(--surface-1);
+  border: 1.5px solid var(--border);
+  text-align: left;
+  transition: border-color var(--dur-fast), background var(--dur-fast), transform var(--dur-fast);
+  overflow: hidden;
+}
+.plan:hover { transform: translateY(-1px); border-color: var(--border-strong); }
+.active { border-color: var(--brand); background: rgba(91, 194, 231, 0.09); box-shadow: var(--glow-cyan-soft); }
+.radio {
+  display: grid; place-items: center;
+  width: 24px; height: 24px; flex: none;
+  border-radius: 50%;
+  border: 2px solid var(--border-strong);
+  color: var(--text-on-accent);
+  transition: background var(--dur-fast), border-color var(--dur-fast);
+}
+.active .radio { background: var(--brand); border-color: var(--brand); }
+.planMain { display: flex; flex-direction: column; gap: 0.1rem; flex: 1; min-width: 0; }
+.planName { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; color: var(--text); }
+.tagline { font-size: 0.74rem; color: var(--text-muted); }
+.planPrice { display: flex; flex-direction: column; align-items: flex-end; }
+.price { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; color: var(--brand); }
+.cadence { font-size: 0.68rem; color: var(--text-dim); }
+.ribbon {
+  position: absolute;
+  top: 0; right: 0;
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #04222f;
+  background: var(--gold-500);
+  padding: 0.15rem 0.6rem;
+  border-bottom-left-radius: var(--r-sm);
+}

@@ -1,0 +1,27 @@
+.head { text-align: center; display: flex; flex-direction: column; gap: 0.5rem; }
+.sub { color: var(--text-muted); font-size: 0.9rem; }
+.sub strong { color: var(--text); font-variant-numeric: tabular-nums; }
+.error { text-align: center; color: var(--danger); font-weight: 600; font-size: 0.88rem; }
+.timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.count { font-size: 0.66rem; font-weight: 700; color: var(--text); }
+.recover { text-align: center; display: flex; flex-direction: column; gap: 0.4rem; }
+.recover p { font-size: 0.82rem; color: var(--text-dim); }
+.retry {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--brand);
+  align-self: center;
+  padding: 0.4rem 1rem;
+  border-radius: var(--r-pill);
+  transition: background var(--dur-fast);
+}
+.retry:hover:not(:disabled) { background: rgba(91, 194, 231, 0.12); }
+.retry:disabled { color: var(--text-dim); cursor: not-allowed; }

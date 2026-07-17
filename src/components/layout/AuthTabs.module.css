@@ -1,0 +1,21 @@
+.tabs { display: flex; gap: 1.5rem; justify-content: center; }
+.tab {
+  position: relative;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--text-dim);
+  padding-bottom: 0.5rem;
+  transition: color var(--dur-base) var(--ease-out);
+}
+.tab:hover { color: var(--text-muted); }
+.active { color: var(--text); }
+.ink {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--econet-cyan), var(--signal-red));
+}

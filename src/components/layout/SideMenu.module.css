@@ -1,0 +1,62 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-drawer);
+  background: rgba(1, 10, 17, 0.6);
+  backdrop-filter: blur(4px);
+}
+.drawer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100dvh;
+  width: min(84vw, 340px);
+  padding: calc(env(safe-area-inset-top, 0px) + 1.2rem) 1.2rem calc(env(safe-area-inset-bottom, 0px) + 1.2rem);
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #0a2337, var(--ink-900));
+  border-right: 1px solid var(--border-strong);
+  box-shadow: var(--shadow-3);
+  overflow-y: auto;
+}
+.top { display: flex; align-items: center; justify-content: space-between; }
+.close {
+  display: inline-grid; place-items: center;
+  width: 40px; height: 40px; border-radius: 50%;
+  color: var(--text-muted); background: rgba(255,255,255,0.06);
+}
+.close:hover { color: #fff; }
+.sub {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #eaf3fb;
+  margin: 0.9rem 0 1.4rem;
+}
+.links { display: flex; flex-direction: column; gap: 0.3rem; }
+.link {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.85rem 0.75rem;
+  border-radius: var(--r-md);
+  color: #cfe4f2;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  transition: background var(--dur-fast), color var(--dur-fast), transform var(--dur-fast);
+}
+.link:hover { background: rgba(91,194,231,0.1); color: #fff; transform: translateX(3px); }
+.linkIcon { color: var(--econet-cyan); display: inline-flex; }
+.chev { margin-left: auto; color: var(--text-dim); }
+
+.footer { margin-top: auto; padding-top: 1.5rem; display: flex; flex-direction: column; align-items: center; gap: 0.9rem; }
+.unsub {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  color: #ff9aa0; font-weight: 700; font-family: var(--font-display);
+  padding: 0.6rem 1rem; border-radius: var(--r-pill);
+  border: 1px solid rgba(233,34,48,0.4);
+  transition: background var(--dur-fast);
+}
+.unsub:hover { background: rgba(233,34,48,0.14); }
+.copy { font-size: 0.72rem; color: var(--text-dim); text-align: center; }

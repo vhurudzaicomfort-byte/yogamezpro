@@ -1,0 +1,22 @@
+.mark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--text);
+  white-space: nowrap;
+  display: inline-flex;
+}
+.accent {
+  color: var(--brand);
+}
+.plate {
+  padding: 0.32em 0.6em;
+  border-radius: 0.5em;
+  background: linear-gradient(180deg, #10202e, #04121c);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), var(--glow-cyan-soft);
+  color: #f2fbff;
+}
+.plate .accent {
+  color: var(--econet-cyan);
+}

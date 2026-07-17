@@ -1,0 +1,4 @@
+.ring { position: relative; display: inline-grid; place-items: center; }
+.ring svg { position: absolute; inset: 0; }
+.arc { transition: stroke-dashoffset var(--dur-slow) var(--ease-out); }
+.center { position: relative; display: grid; place-items: center; color: var(--text); }

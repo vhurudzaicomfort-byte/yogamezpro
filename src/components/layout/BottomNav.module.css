@@ -1,0 +1,44 @@
+.nav {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  z-index: var(--z-nav);
+  width: 100%;
+  max-width: var(--app-max);
+  height: calc(var(--bottomnav-h) + env(safe-area-inset-bottom, 0px));
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border);
+  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.3);
+}
+.tab {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: var(--text-dim);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  transition: color var(--dur-base) var(--ease-out), transform var(--dur-fast);
+}
+.tab:active { transform: scale(0.94); }
+.active { color: var(--brand); }
+.label { line-height: 1; }
+.glow {
+  position: absolute;
+  top: 6px;
+  width: 46px;
+  height: 30px;
+  border-radius: var(--r-pill);
+  background: radial-gradient(closest-side, rgba(91, 194, 231, 0.32), transparent);
+  z-index: 0;
+}
+.tab svg, .tab .label { position: relative; z-index: 1; }

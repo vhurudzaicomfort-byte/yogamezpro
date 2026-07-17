@@ -36,8 +36,7 @@ export function GameCard({ game, variant = 'grid' }: GameCardProps) {
       onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), open())}
     >
       <div className={styles.art} aria-hidden="true">
-        <span className={styles.artGlow} />
-        <GameIcon game={game.icon} size={variant === 'hero' ? 132 : variant === 'rail' ? 84 : 96} className={styles.icon} />
+        <GameIcon game={game.icon} fill className={styles.icon} />
         <span className={styles.scrim} />
       </div>
 

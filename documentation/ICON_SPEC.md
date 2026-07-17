@@ -1,67 +1,80 @@
-# YoGamezPro — Icon Specification
+# Icon Specification
 
-Two icon systems, one visual language. New titles and new UI actions slot in
-without a redesign by following these rules.
+Two icon systems ship in YoGamezPro: **game icons** (the branded title art) and
+the **UI icon set** (interface glyphs). No emoji, no icon fonts, no mixed
+libraries — anywhere.
 
 ---
 
-## 1. Game icons (`src/icons/games/GameIcon.tsx`)
+## 1. Game icons
 
-Rebuilt from the supplied logos as crisp vector art — **never upscaled raster**
-(brief §7). Silhouettes preserved so a subscriber still recognises the title.
+The four launch titles use supplied **upgraded, wordmarked vector icons**
+(`src/assets/games/`): `CashRider.svg`, `CryptoCrush.svg`, `Gamewin.svg`,
+`Zuma.svg`. They replace the old low-resolution rasters from the production
+portal.
+
+### Grid spec
 
 | Property | Value |
 |---|---|
-| Artboard | **512 × 512** |
-| Safe padding | **8%** (≈41px) — nothing critical outside |
-| Tile corner radius | **112px** (unified across the whole set) |
-| Tile treatment | vertical brand gradient + top-left radial light + 3px inner ring |
-| Light direction | **top-left**, single source, consistent across all icons |
-| Depth | soft drop shadow on the subject (`drop-shadow`, Safari-safe — no SVG filters) |
-| Format | inline SVG React component, no embedded rasters, no `<filter>` blurs |
-| Colour | brand hex derived from tokens (navy/cyan/red/orange/gold) |
+| Artboard | `512 × 512` (`viewBox="0 0 512 512"`) |
+| Format | Optimised SVG — **no embedded rasters**, no Safari-breaking filters |
+| Shape | Rounded-square "plate" per title |
+| Plate fill | Per-title gradient derived from the brand palette |
+| Lockup | Game **wordmark** locked into the lower third of each plate |
+| Light | Consistent top-left key light + radial highlight across the set |
+| Silhouette | Recognisable per title (coin / car+coin / trophy / frog + ball chain) |
 
-### Current set
-| Icon | Tile gradient | Subject |
+### Per-title base colours
+
+| Title | Plate gradient | Motif |
 |---|---|---|
-| `cryptoCrush` | indigo → navy | gold Bitcoin-stamped coin |
-| `cashRider` | orange → red | helmeted rider, wheel, speed streaks |
-| `gamewin` | blue → deep-blue | gold trophy + star + laurels |
-| `zuma` | green → teal | carved wooden "Z" plank + orbiting balls |
+| CashRider | Econet green → deep green | Car + cash coin, speed lines |
+| CryptoCrush | Orange → deep amber | Coin "C" with spark |
+| Gamewin | Econet blue → deep navy | Trophy + ribbon banner |
+| Zuma | Signal red → deep maroon | Frog shooter + ball chain |
+
+### How they are used
+
+The icons are self-contained plates, so they render as **cover art**, not a
+floating glyph on a coloured tile:
+
+- **`GameCard`** — `<GameIcon game={...} fill />` fills the card's **square**
+  art region edge-to-edge (`object-fit: cover`). Square art matches the square
+  plates, so the wordmark is never cropped and no background bleeds through.
+- **`HeroBanner` / `GameDetail`** — `<GameIcon game={...} size={n} />` renders
+  the plate as a fixed-size floating subject with a drop shadow.
 
 ### Adding a new title
-1. Add a `<NewGame/>` function in `GameIcon.tsx` using the `<Tile gid from to>`
-   wrapper (guarantees the shared tile, light and ring).
-2. Keep the subject inside the 8% safe area, lit from the top-left.
-3. Register it in the `MAP` object and add the key to `Game['icon']` in
-   `src/types/index.ts`.
-4. Reference it from the catalogue (`src/config/catalogue.ts`).
+
+1. Author the icon to the grid spec above (512 artboard, plate + wordmark,
+   consistent light) and export optimised SVG.
+2. Drop it in `src/assets/games/`.
+3. Add the import + map entry in `src/icons/games/GameIcon.tsx`, a new `icon`
+   key on the `Game` type, and a catalogue entry. Nothing else changes — cards,
+   rails, hero and detail pick it up automatically.
 
 ---
 
-## 2. UI icons (`src/icons/Icon.tsx`)
+## 2. UI icon set
 
-A single custom SVG set. **No icon fonts, no emoji, no mixed libraries** (§7).
+A single custom SVG set in `src/icons/Icon.tsx`, rendered by the `<Icon>`
+component.
 
 | Property | Value |
 |---|---|
-| Grid | **24 × 24** |
-| Stroke | **1.5px**, `round` caps + joins |
-| Style pairs | `line` (default) + `solid` (filled) for nav-active states |
+| Grid | `24 × 24` |
+| Stroke | `1.5px`, round caps + joins |
+| Variants | `line` (default) and `solid` — nav tabs fill in when active |
 | Colour | `currentColor` — inherits text colour, themeable |
-| A11y | `aria-hidden` by default; pass `title` to expose with `role="img"` |
+| A11y | `title` prop exposes a label; otherwise `aria-hidden` + `focusable="false"` |
 
-### Usage
-```tsx
-<Icon name="home" />                    {/* line */}
-<Icon name="home" variant="solid" />    {/* filled — active tab */}
-<Icon name="trophy" title="Leaderboard" size={20} />
-```
+Registered names (`IconName`): `home, user, flag, gift, menu, close, search,
+play, chevronRight, chevronLeft, arrowLeft, trophy, medal, star, flame, grid,
+bell, check, edit, chat, logout, filter, clock, sun, moon, sparkle, shield,
+bolt, ticket`.
 
-### Adding a UI icon
-Add a `line` entry (and optional `solid`) to the `LINE` / `SOLID` maps in
-`Icon.tsx`, keyed by a new name added to the `IconName` union. Draw on the 24px
-grid at 1.5px stroke so it sits consistently beside the rest of the set.
-
-Nav icons that appear in the bottom bar **must** ship a `solid` variant so the
-active tab fills in.
+Nav icons (`home`, `user`, `flag`, `gift`) ship `line` + `solid` pairs so the
+active `BottomNav` tab renders filled. Add an icon by appending its path to the
+`LINE` map (and `SOLID` if it needs a filled variant) and extending the
+`IconName` union.

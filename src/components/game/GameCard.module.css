@@ -23,21 +23,14 @@
   place-items: center;
   background: var(--art);
   overflow: hidden;
-  aspect-ratio: 16 / 10;
-}
-.artGlow {
-  position: absolute;
-  inset: -20% 20% 40%;
-  background: radial-gradient(closest-side, rgba(255, 255, 255, 0.35), transparent 70%);
-  opacity: 0.6;
+  aspect-ratio: 1 / 1;
 }
 .icon {
   position: relative;
   z-index: 1;
-  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.35));
   transition: transform var(--dur-slow) var(--ease-out);
 }
-.card:hover .icon { transform: translateY(-6px) scale(1.06); }
+.card:hover .icon { transform: scale(1.05); }
 .scrim {
   position: absolute;
   inset: 0;
@@ -69,23 +62,18 @@
 .card:hover .play { filter: brightness(1.08); }
 
 /* ---- Variant: hero (full-bleed spotlight) ---- */
-.hero .art { aspect-ratio: 16 / 11; }
 .hero .title { font-size: 1.5rem; }
 .hero .info { padding: 1rem 1.1rem 1.15rem; }
 
 /* ---- Variant: featured ---- */
-.featured { }
-.featured .art { aspect-ratio: 16 / 10; }
 .featured .title { font-size: 1.25rem; }
 
 /* ---- Variant: rail (fixed width in a scroller) ---- */
 .rail { width: 160px; flex: 0 0 auto; scroll-snap-align: start; }
-.rail .art { aspect-ratio: 1 / 1; }
 .rail .title { font-size: 0.95rem; }
 .rail .tagline { display: none; }
 
-/* ---- Variant: grid (2-up) ---- */
-.grid .art { aspect-ratio: 4 / 3; }
+/* ---- Variant: grid (2-up) — square art (icons are square plates) ---- */
 
 /* ---- Variant: compact (search row / related) ---- */
 .compact { flex-direction: row; align-items: stretch; }

@@ -1,0 +1,39 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="zu-plate" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#EE3D4C"></stop><stop offset="1" stop-color="#55090F"></stop></linearGradient>
+<radialGradient id="zu-glow" cx="0.3" cy="0.26" r="0.8"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0.16"></stop><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"></stop></radialGradient>
+<radialGradient id="zu-blu" cx="0.35" cy="0.3" r="0.95"><stop offset="0" stop-color="#8CA0F5"></stop><stop offset="0.5" stop-color="#4655C0"></stop><stop offset="1" stop-color="#1B2560"></stop></radialGradient>
+<radialGradient id="zu-org" cx="0.35" cy="0.3" r="0.95"><stop offset="0" stop-color="#FFC98A"></stop><stop offset="0.5" stop-color="#F28028"></stop><stop offset="1" stop-color="#9A4A0D"></stop></radialGradient>
+<radialGradient id="zu-cyn" cx="0.35" cy="0.3" r="0.95"><stop offset="0" stop-color="#CFF0FB"></stop><stop offset="0.5" stop-color="#5BC2E7"></stop><stop offset="1" stop-color="#1E7FA6"></stop></radialGradient>
+<radialGradient id="zu-wht" cx="0.35" cy="0.3" r="0.95"><stop offset="0" stop-color="#FFFFFF"></stop><stop offset="0.55" stop-color="#E8EEF4"></stop><stop offset="1" stop-color="#9FB4C4"></stop></radialGradient>
+<radialGradient id="zu-frog" cx="0.35" cy="0.28" r="0.95"><stop offset="0" stop-color="#8FD9F2"></stop><stop offset="0.55" stop-color="#2E8FB5"></stop><stop offset="1" stop-color="#14536E"></stop></radialGradient>
+<clipPath id="zu-clip"><rect width="512" height="512" rx="112"></rect></clipPath>
+</defs>
+<rect width="512" height="512" rx="112" fill="url(#zu-plate)"></rect>
+<rect width="512" height="512" rx="112" fill="url(#zu-glow)"></rect><g transform="translate(77,0) scale(0.70)">
+<ellipse cx="180" cy="438" rx="126" ry="20" fill="#33040A" opacity="0.4"></ellipse>
+<circle cx="146" cy="120" r="44" fill="url(#zu-blu)"></circle><circle cx="132" cy="104" r="9" fill="#FFFFFF" opacity="0.75"></circle>
+<circle cx="230" cy="96" r="44" fill="url(#zu-org)"></circle><circle cx="216" cy="80" r="9" fill="#FFFFFF" opacity="0.75"></circle>
+<circle cx="312" cy="116" r="44" fill="url(#zu-cyn)"></circle><circle cx="298" cy="100" r="9" fill="#FFFFFF" opacity="0.75"></circle>
+<circle cx="378" cy="168" r="44" fill="url(#zu-wht)"></circle><circle cx="364" cy="152" r="9" fill="#FFFFFF" opacity="0.75"></circle>
+<circle cx="414" cy="242" r="44" fill="url(#zu-org)"></circle><circle cx="400" cy="226" r="9" fill="#FFFFFF" opacity="0.75"></circle>
+<circle cx="410" cy="322" r="44" fill="url(#zu-blu)"></circle><circle cx="396" cy="306" r="9" fill="#FFFFFF" opacity="0.75"></circle>
+<path d="M101 124 A45 45 0 0 1 158 77" fill="none" stroke="#5BC2E7" stroke-width="4" stroke-linecap="round" opacity="0.9"></path>
+<line x1="236" y1="288" x2="256" y2="270" stroke="#5BC2E7" stroke-width="6" stroke-linecap="round" opacity="0.7"></line>
+<line x1="222" y1="302" x2="242" y2="284" stroke="#5BC2E7" stroke-width="6" stroke-linecap="round" opacity="0.4"></line>
+<circle cx="284" cy="244" r="26" fill="url(#zu-blu)"></circle>
+<circle cx="276" cy="234" r="6" fill="#FFFFFF" opacity="0.75"></circle>
+<ellipse cx="168" cy="352" rx="96" ry="78" fill="url(#zu-frog)"></ellipse>
+<circle cx="118" cy="284" r="27" fill="url(#zu-frog)"></circle>
+<circle cx="206" cy="274" r="27" fill="url(#zu-frog)"></circle>
+<circle cx="120" cy="282" r="15" fill="#F2F8FC"></circle>
+<circle cx="208" cy="272" r="15" fill="#F2F8FC"></circle>
+<circle cx="124" cy="282" r="8" fill="#00263A"></circle>
+<circle cx="212" cy="272" r="8" fill="#00263A"></circle>
+<circle cx="121" cy="279" r="2.5" fill="#FFFFFF"></circle>
+<circle cx="209" cy="269" r="2.5" fill="#FFFFFF"></circle>
+<ellipse cx="204" cy="366" rx="34" ry="27" fill="#0E3446"></ellipse>
+<circle cx="208" cy="362" r="19" fill="url(#zu-org)"></circle>
+<path d="M82 316 Q98 284 148 276" fill="none" stroke="#5BC2E7" stroke-width="4" stroke-linecap="round" opacity="0.8"></path>
+</g><g transform="translate(77.51999999999998,368) scale(0.92)"><g fill="none" stroke="#5A0A11" stroke-width="34" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"><path d="M12 10 L46 10 L12 90 L46 90" transform="translate(25,16) rotate(-8 30 50)"></path><path d="M12 10 L12 66 Q12 90 30 90 Q48 90 48 66 L48 10" transform="translate(119,6) rotate(-3 30 50)"></path><path d="M10 90 L10 10 L32 58 L54 10 L54 90" transform="translate(217,6) rotate(3 30 50)"></path><path d="M10 90 L30 10 L50 90 M19 60 L41 60" transform="translate(319,16) rotate(8 30 50)"></path></g><g fill="none" stroke="#5A0A11" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"><path d="M12 10 L46 10 L12 90 L46 90" transform="translate(17,6) rotate(-8 30 50)"></path><path d="M12 10 L12 66 Q12 90 30 90 Q48 90 48 66 L48 10" transform="translate(111,-4) rotate(-3 30 50)"></path><path d="M10 90 L10 10 L32 58 L54 10 L54 90" transform="translate(209,-4) rotate(3 30 50)"></path><path d="M10 90 L30 10 L50 90 M19 60 L41 60" transform="translate(311,6) rotate(8 30 50)"></path></g><g fill="none" stroke="#FFFFFF" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"><path d="M12 10 L46 10 L12 90 L46 90" transform="translate(17,6) rotate(-8 30 50)"></path><path d="M12 10 L12 66 Q12 90 30 90 Q48 90 48 66 L48 10" transform="translate(111,-4) rotate(-3 30 50)"></path><path d="M10 90 L10 10 L32 58 L54 10 L54 90" transform="translate(209,-4) rotate(3 30 50)"></path><path d="M10 90 L30 10 L50 90 M19 60 L41 60" transform="translate(311,6) rotate(8 30 50)"></path></g></g><g clip-path="url(#zu-clip)"><ellipse cx="256" cy="-34" rx="330" ry="118" fill="#FFFFFF" opacity="0.08"></ellipse></g>
+</svg>

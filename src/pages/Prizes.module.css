@@ -1,24 +1,59 @@
 .page { padding: 0.6rem 1rem 1rem; display: flex; flex-direction: column; gap: 1.1rem; }
 
-.hero {
+/* Identity band (brand blue, both themes) */
+.band {
   position: relative;
   overflow: hidden;
-  padding: 1.3rem 1.2rem;
+  padding: 1.2rem 1.2rem 1.25rem;
   border-radius: var(--r-xl);
-  background: var(--grad-reward);
+  background: linear-gradient(135deg, var(--econet-blue) 0%, var(--econet-blue-600) 100%);
   color: #fff;
   box-shadow: var(--shadow-3);
   isolation: isolate;
 }
-.heroGlow {
-  position: absolute;
-  inset: -40% -20% auto auto;
-  width: 200px; height: 200px;
-  background: radial-gradient(closest-side, rgba(255,255,255,0.4), transparent);
-  z-index: -1;
+.bandRow { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.bandKicker { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--econet-cyan); }
+.bandTitle { font-size: 1.7rem; font-weight: 700; line-height: 1.05; color: #fff; }
+.bandGift {
+  display: grid; place-items: center;
+  width: 46px; height: 46px; flex: none;
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.22);
 }
-.heroTitle { font-size: 1.6rem; font-weight: 700; line-height: 1.05; margin-top: 0.2rem; }
-.heroCopy { font-size: 0.88rem; opacity: 0.92; margin-top: 0.3rem; }
+.bandCopy { font-size: 0.86rem; color: rgba(255, 255, 255, 0.85); margin-top: 0.5rem; max-width: 30ch; }
+
+/* Currency row */
+.currencyRow { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+.currencyLabel { font-size: 0.82rem; font-weight: 600; color: var(--text-muted); }
+
+/* Your rewards */
+.rewards { display: flex; flex-direction: column; gap: 0.7rem; }
+.sectionTitle { font-size: 1.15rem; font-weight: 700; color: var(--text); }
+.rewardGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
+.reward {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  padding: 0.8rem 0.75rem;
+  border-radius: var(--r-lg);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  min-height: 92px;
+}
+.reward.unclaimed { border-color: rgba(242, 128, 40, 0.5); background: rgba(242, 128, 40, 0.08); }
+.reward.expired { opacity: 0.6; }
+.rewardValue { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; color: var(--reward); }
+.reward.claimed .rewardValue { color: var(--text-muted); }
+.rewardLabel { font-size: 0.72rem; color: var(--text-muted); line-height: 1.3; flex: 1; }
+.stateChip {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 0.72rem; font-weight: 700; color: var(--brand);
+}
+.expiredChip { color: var(--text-dim); }
+@media (max-width: 380px) { .rewardGrid { grid-template-columns: 1fr; } }
 
 /* Wheel card */
 .wheelCard {

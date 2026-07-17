@@ -84,6 +84,10 @@
   --app-max: 480px;            /* mobile-first stage, capped on desktop */
   --header-h: 60px;
   --bottomnav-h: 68px;
+  /* Space the sticky bars occupy — scroll containers pad by these so nothing
+     is ever hidden behind the header or bottom nav, safe-area included. */
+  --header-inset: calc(var(--header-h) + env(safe-area-inset-top, 0px));
+  --nav-bottom-inset: calc(var(--bottomnav-h) + env(safe-area-inset-bottom, 0px));
   --z-nav: 40;
   --z-drawer: 60;
   --z-modal: 80;

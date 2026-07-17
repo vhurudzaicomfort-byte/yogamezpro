@@ -15,6 +15,8 @@
   --surface-3: rgba(255, 255, 255, 0.11);
   --surface-solid: #0f2233;
   --surface-glass: rgba(6, 22, 34, 0.72);
+  /* Sticky bars: opaque enough that content does not bleed through */
+  --nav-surface: rgba(6, 19, 29, 0.92);
   --border: rgba(255, 255, 255, 0.1);
   --border-strong: rgba(255, 255, 255, 0.2);
 
@@ -47,6 +49,7 @@
   --surface-3: #e7eef7;
   --surface-solid: #ffffff;
   --surface-glass: rgba(255, 255, 255, 0.82);
+  --nav-surface: rgba(255, 255, 255, 0.93);
   --border: rgba(11, 37, 63, 0.12);
   --border-strong: rgba(11, 37, 63, 0.24);
 

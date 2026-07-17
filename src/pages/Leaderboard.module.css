@@ -1,191 +1,111 @@
 .page {
-  padding: 0.6rem 0 1rem;
+  /* Clearance so the last list row always scrolls clear of the pinned own-row
+     (which itself sits above the bottom nav). */
+  padding-bottom: 6rem;
   --silver: #c9d3e0;
-  --bronze: #cd8b5a;
-}
-.head {
-  display: flex;
-  flex-direction: column;
-  gap: 0.9rem;
-  padding-inline: 1rem;
-}
-.titleRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-}
-.h2 {
-  font-size: var(--fs-h2);
-  font-weight: 700;
-  color: var(--text);
+  --bronze: #d08a52;
 }
 
-.stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.6rem;
-  padding-inline: 1rem;
-  margin-top: 1rem;
+/* ---- Brand header band ---- */
+.band {
+  margin: 0 1rem 1rem;
+  padding: 1rem 1.1rem 1.1rem;
+  border-radius: var(--r-lg);
+  background: linear-gradient(135deg, var(--econet-blue), var(--econet-blue-600));
+  color: #fff;
+  box-shadow: var(--shadow-2), inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
+.bandTop { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+.bandTitle { display: flex; align-items: center; gap: 0.5rem; color: var(--gold-300); }
+.bandTitle h1 { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; color: #fff; }
+.bandSub { font-size: 0.82rem; color: rgba(234, 243, 251, 0.82); margin-top: 0.3rem; }
 
-.board {
-  margin-top: 1.2rem;
-}
+.controls { padding: 0 1rem; margin-bottom: 0.9rem; }
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; padding: 0 1rem; margin-bottom: 1.2rem; }
+
+/* ---- Skeleton ---- */
+.skeletonWrap { display: flex; flex-direction: column; gap: 0.6rem; padding: 0 1rem; }
+.podiumSkeleton { display: flex; align-items: flex-end; justify-content: center; gap: 0.6rem; margin-bottom: 0.6rem; }
 
 /* ---- Podium ---- */
 .podium {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr 1.15fr 1fr;
   align-items: end;
   gap: 0.6rem;
-  padding: 0 1rem 0.4rem;
+  padding: 0 1rem;
+  margin-bottom: 1.2rem;
 }
 .pillar {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.3rem;
-  padding: 0.9rem 0.4rem 0;
-  border-radius: var(--r-lg) var(--r-lg) 0 0;
-  background: linear-gradient(180deg, var(--surface-2), var(--surface-1));
+  gap: 0.25rem;
+  padding: 1.4rem 0.5rem 0.9rem;
+  border-radius: var(--r-lg);
+  background: var(--surface-1);
   border: 1px solid var(--border);
-  border-bottom: none;
+  text-align: center;
 }
-.first {
-  transform: translateY(-14px);
-  background: linear-gradient(180deg, rgba(245, 195, 68, 0.18), var(--surface-1));
-  border-color: color-mix(in srgb, var(--gold-500) 55%, transparent);
-  box-shadow: 0 -6px 26px rgba(245, 195, 68, 0.18);
-}
-.crown { color: var(--gold-500); line-height: 1; }
-.silver .crown { color: var(--silver); }
-.bronze .crown { color: var(--bronze); }
-.gold .crown { color: var(--gold-500); }
-
-.avatar {
-  display: grid;
-  place-items: center;
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: var(--surface-3);
-  color: var(--text);
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1rem;
-  border: 2px solid var(--border-strong);
-}
-.first .avatar {
-  width: 60px;
-  height: 60px;
-  border-color: var(--gold-500);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--gold-500) 30%, transparent);
-}
-.silver .avatar { border-color: var(--silver); }
-.bronze .avatar { border-color: var(--bronze); }
-
-.pName {
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-weight: 600;
-  font-size: 0.78rem;
-  color: var(--text);
-}
-.pScore {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.95rem;
-  color: var(--brand);
-}
-.plinth {
-  display: grid;
-  place-items: center;
-  width: 100%;
-  margin-top: 0.4rem;
-  padding: 0.5rem 0;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.3rem;
-  color: var(--text-muted);
-  background: var(--surface-2);
-  border-top: 2px solid var(--border-strong);
-}
-.first .plinth {
-  color: var(--gold-500);
-  background: linear-gradient(180deg, rgba(245, 195, 68, 0.16), var(--surface-2));
-  padding: 0.9rem 0;
-}
-.silver .plinth { padding: 0.7rem 0; }
+.gold { padding-top: 1.9rem; background: linear-gradient(180deg, rgba(245, 195, 68, 0.16), var(--surface-1)); border-color: rgba(245, 195, 68, 0.5); box-shadow: 0 10px 30px rgba(245, 195, 68, 0.18); }
+.silver { border-color: rgba(201, 211, 224, 0.4); }
+.bronze { border-color: rgba(208, 138, 82, 0.4); }
+.medal { position: absolute; top: -14px; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--surface-solid); border: 1px solid var(--border-strong); }
+.gold .medal { color: var(--gold-500); border-color: var(--gold-500); }
+.silver .medal { color: var(--silver); border-color: var(--silver); }
+.bronze .medal { color: var(--bronze); border-color: var(--bronze); }
+.pAvatar { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--surface-3); color: var(--text-muted); }
+.gold .pAvatar { width: 52px; height: 52px; }
+.pId { font-size: 0.7rem; font-weight: 700; color: var(--text-muted); letter-spacing: -0.01em; }
+.pScore { font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; color: var(--text); }
+.gold .pScore { font-size: 1.35rem; color: var(--gold-500); }
+.pRank { position: absolute; bottom: 6px; right: 8px; font-family: var(--font-display); font-weight: 800; font-size: 0.9rem; color: var(--text-dim); }
 
 /* ---- List ---- */
-.list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  padding: 0.8rem 1rem 0;
-}
-.row,
-.pin {
+.list { display: flex; flex-direction: column; gap: 0.4rem; padding: 0 1rem; }
+.row, .ownRow {
   display: grid;
-  grid-template-columns: 28px 40px 1fr auto;
+  grid-template-columns: 1.6rem 2.1rem 1.9rem 1fr auto;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.6rem 0.8rem;
+  gap: 0.6rem;
+  padding: 0.7rem 0.9rem;
   border-radius: var(--r-md);
   background: var(--surface-1);
   border: 1px solid var(--border);
 }
-.rank {
-  text-align: center;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1rem;
-  color: var(--text-muted);
-}
-.rowAvatar {
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--surface-3);
-  color: var(--text);
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.8rem;
-}
-.name {
-  font-weight: 600;
-  color: var(--text);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.score {
-  font-family: var(--font-display);
-  font-weight: 700;
-  color: var(--text);
-}
+.rank { font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; color: var(--text-dim); text-align: center; }
+.rowAvatar { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--surface-3); color: var(--text-muted); }
+.id { font-size: 0.85rem; font-weight: 600; color: var(--text); letter-spacing: -0.01em; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.score { font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; color: var(--text); }
 
-/* ---- Own-rank pin ---- */
-.pin {
+.move { display: inline-flex; align-items: center; gap: 2px; font-size: 0.72rem; font-weight: 700; justify-content: center; }
+.up { color: #34d39a; }
+.down { color: #ff7a84; }
+.moveSame { color: var(--text-dim); text-align: center; font-weight: 700; }
+
+/* ---- Pinned own row ---- */
+.ownRow {
   position: sticky;
-  bottom: calc(var(--bottomnav-h) + env(safe-area-inset-bottom, 0px) + 0.6rem);
-  margin: 0.8rem 1rem 0;
-  background: linear-gradient(180deg, rgba(91, 194, 231, 0.16), var(--surface-2));
-  border-color: var(--brand);
-  box-shadow: var(--glow-cyan-soft), var(--shadow-2);
+  bottom: calc(var(--nav-bottom-inset) + 8px);
   z-index: 5;
+  margin: 0.8rem 1rem 0;
+  /* Fully opaque (tint layered over a solid surface) so scrolled rows never
+     bleed through the pinned bar. */
+  background: linear-gradient(180deg, rgba(91, 194, 231, 0.18), rgba(91, 194, 231, 0.06)), var(--surface-solid);
+  border: 1.5px solid var(--brand);
+  box-shadow: var(--glow-cyan-soft), var(--shadow-2);
 }
-.pin .rank { color: var(--brand); }
-.pin .name { color: var(--text); }
-.pin .score { color: var(--brand); }
-.youAvatar {
-  background: linear-gradient(180deg, var(--econet-cyan), var(--econet-blue));
+.youId { display: flex; align-items: center; gap: 0.5rem; min-width: 0; }
+.youTag {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   color: var(--text-on-accent);
-  font-size: 0.68rem;
+  background: var(--brand);
+  padding: 0.12rem 0.5rem;
+  border-radius: var(--r-pill);
+  flex: none;
 }

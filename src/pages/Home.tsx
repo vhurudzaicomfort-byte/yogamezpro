@@ -10,11 +10,15 @@ import type { CategoryKey } from '../types';
 import styles from './Home.module.css';
 
 const featured = GAMES.find((g) => g.id === FEATURED_ID)!;
-const trending = GAMES.filter((g) => g.trending);
-const recentlyPlayed = [GAMES[1], GAMES[2], GAMES[0], GAMES[5]];
-const recommended = GAMES.filter((g) => !g.trending).slice(0, 5);
 
-/** Home — hero + content rails + category chips + grid (brief §5). */
+/**
+ * Recently-played history (correction §2). Empty array → the Jump Back In rail
+ * is not rendered at all. Seeded with two titles here to represent a returning
+ * player; a real build reads this from the play-history service.
+ */
+const recentlyPlayed = GAMES.filter((g) => g.id === 'cash-rider' || g.id === 'zuma');
+
+/** Home — exactly two sections: Jump Back In (if any) + All Games (§2). */
 export function Home() {
   const navigate = useNavigate();
   const { offerIfEligible } = useWheel();
@@ -22,7 +26,7 @@ export function Home() {
 
   useEffect(() => {
     const t = setTimeout(() => setLoading(false), 700);
-    // Auto-offer the Lucky Wheel on land, honouring the once-per-day cap (§8).
+    // Auto-offer the Lucky Wheel on land, honouring the once-per-day cap.
     const w = setTimeout(() => offerIfEligible(), 1400);
     return () => { clearTimeout(t); clearTimeout(w); };
   }, [offerIfEligible]);
@@ -38,17 +42,17 @@ export function Home() {
         ))}
       </nav>
 
-      <GameRail title="Trending now" games={trending} loading={loading} action={{ label: 'See all', onClick: () => navigate('/search') }} />
-      <GameRail title="Jump back in" games={recentlyPlayed} loading={loading} />
+      {recentlyPlayed.length > 0 && (
+        <GameRail title="Jump back in" games={recentlyPlayed} loading={loading} />
+      )}
 
       <section className={styles.gridSection}>
         <div className={styles.gridHead}>
           <h2 className={styles.gridTitle}>All games</h2>
+          <span className={styles.count}>{GAMES.length} titles</span>
         </div>
-        <GameGrid games={GAMES} loading={loading} count={6} />
+        <GameGrid games={GAMES} loading={loading} count={4} />
       </section>
-
-      <GameRail title="Recommended for you" games={recommended} loading={loading} />
     </div>
   );
 }

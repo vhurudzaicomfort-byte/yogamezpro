@@ -1,120 +1,149 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { SegmentedControl } from '../components/ui/SegmentedControl';
-import { Chip } from '../components/ui/Chip';
 import { StatPill } from '../components/ui/StatPill';
+import { Skeleton } from '../components/ui/Skeleton';
+import { EmptyState } from '../components/ui/EmptyState';
+import { Ribbon } from '../components/ui/Ribbon';
 import { Icon } from '../icons/Icon';
 import { LEADERBOARDS, YOUR_RANK, PLAYER } from '../config/leaderboard';
+import { useSession } from '../hooks/useSession';
+import { maskMsisdn } from '../utils/msisdn';
 import { formatScore, ordinal } from '../utils/format';
 import { itemVariants, listVariants } from '../animations/variants';
 import type { LeaderboardEntry, LeaderboardPeriod } from '../types';
 import styles from './Leaderboard.module.css';
 
-/** Initials from a display name, e.g. "Tariro M." -> "TM", "You" -> "YOU". */
-function initials(name: string): string {
-  if (name === 'You') return 'YOU';
-  return name
-    .split(/\s+/)
-    .map((part) => part[0])
-    .join('')
-    .slice(0, 2)
-    .toUpperCase();
+/** Small rank-movement indicator built from movement + delta. */
+function Movement({ movement, delta }: { movement?: LeaderboardEntry['movement']; delta?: number }) {
+  if (!movement || movement === 'same') return <span className={styles.moveSame} aria-label="No change">—</span>;
+  const up = movement === 'up';
+  return (
+    <span className={`${styles.move} ${up ? styles.up : styles.down} num`} aria-label={`${up ? 'Up' : 'Down'} ${delta} place${delta === 1 ? '' : 's'}`}>
+      <svg width="8" height="8" viewBox="0 0 8 8" aria-hidden="true">
+        <path d={up ? 'M4 1 7 6 1 6z' : 'M4 7 1 2 7 2z'} fill="currentColor" />
+      </svg>
+      {delta}
+    </span>
+  );
 }
 
-const PODIUM_ORDER = [1, 0, 2]; // render 2nd, 1st, 3rd left→right
-const MEDAL_CLASS = ['gold', 'silver', 'bronze'] as const;
+const PODIUM_ORDER = [1, 0, 2]; // 2nd · 1st · 3rd
+const PODIUM_TONE = ['silver', 'gold', 'bronze'] as const;
 
 /**
- * Leaderboard — Daily / Weekly ranking with podium, own-rank pinning and a live
- * pulse. Preserves the production score/position stat block (AUDIT.md §9) and
- * elevates it with a podium treatment and animated board transitions.
+ * Leaderboard (correction §5, §7). Light + dark, never empty: brand header
+ * band, Daily/Weekly tabs, top-3 podium, a masked ranked list (no names, ever)
+ * with movement indicators, and the current user's own row pinned above the
+ * bottom nav. Includes a loading skeleton and a designed empty state.
  */
 export function Leaderboard() {
   const [period, setPeriod] = useState<LeaderboardPeriod>('daily');
+  const [loading, setLoading] = useState(true);
+  const { msisdn } = useSession();
 
-  const board = LEADERBOARDS[period];
+  useEffect(() => {
+    setLoading(true);
+    const t = setTimeout(() => setLoading(false), 600);
+    return () => clearTimeout(t);
+  }, [period]);
+
+  const rows = LEADERBOARDS[period];
+  const podium = rows.slice(0, 3);
+  const rest = rows.slice(3);
   const you = YOUR_RANK[period];
-  const top3 = board.slice(0, 3);
-  const rest = board.slice(3);
+  const ownMask = msisdn ? maskMsisdn(msisdn) : '+2637****0000';
 
   const score = period === 'daily' ? PLAYER.dailyScore : PLAYER.weeklyScore;
   const position = period === 'daily' ? PLAYER.dailyPosition : PLAYER.weeklyPosition;
-  const periodLabel = period === 'daily' ? 'Daily' : 'Weekly';
 
   return (
     <div className={styles.page}>
-      <div className={styles.head}>
-        <div className={styles.titleRow}>
-          <h2 className={styles.h2}>Rankings</h2>
-          <Chip static tone="live">Live</Chip>
+      {/* Brand header band */}
+      <header className={styles.band}>
+        <div className={styles.bandTop}>
+          <div className={styles.bandTitle}>
+            <Icon name="trophy" variant="solid" size={22} />
+            <h1>Leaderboard</h1>
+          </div>
+          <Ribbon variant="live">Live</Ribbon>
         </div>
+        <p className={styles.bandSub}>Climb the ranks and defend your position.</p>
+      </header>
+
+      <div className={styles.controls}>
         <SegmentedControl
-          segments={[
-            { value: 'daily', label: 'Daily' },
-            { value: 'weekly', label: 'Weekly' },
-          ]}
+          segments={[{ value: 'daily', label: 'Daily' }, { value: 'weekly', label: 'Weekly' }]}
           value={period}
-          onChange={setPeriod}
+          onChange={(v) => setPeriod(v)}
           ariaLabel="Leaderboard period"
         />
       </div>
 
       <div className={styles.stats}>
-        <StatPill label={`Your ${periodLabel} Score`} value={formatScore(score)} tone="accent" />
-        <StatPill label={`Your ${periodLabel} Rank`} value={ordinal(position)} tone="reward" />
+        <StatPill label={`Your ${period} score`} value={formatScore(score)} tone="brand" />
+        <StatPill label={`Your ${period} rank`} value={ordinal(position)} tone="reward" />
       </div>
 
-      <motion.div
-        key={period}
-        className={styles.board}
-        variants={listVariants}
-        initial="initial"
-        animate="enter"
-      >
-        {/* Podium — top 3 */}
-        <ol className={styles.podium} aria-label={`Top 3 — ${periodLabel}`}>
-          {PODIUM_ORDER.map((idx) => {
-            const entry = top3[idx];
-            if (!entry) return null;
-            const medal = MEDAL_CLASS[idx];
-            return (
-              <motion.li
-                key={entry.rank}
-                variants={itemVariants}
-                className={`${styles.pillar} ${styles[medal]} ${idx === 0 ? styles.first : ''}`}
-              >
-                <span className={styles.crown}>
-                  {idx === 0 ? <Icon name="trophy" variant="solid" size={22} /> : <Icon name="medal" variant="solid" size={20} />}
-                </span>
-                <span className={styles.avatar} aria-hidden="true">{initials(entry.name)}</span>
-                <span className={styles.pName}>{entry.name}</span>
-                <span className={`${styles.pScore} num`}>{formatScore(entry.score)}</span>
-                <span className={styles.plinth} aria-hidden="true">{entry.rank}</span>
+      {loading ? (
+        <div className={styles.skeletonWrap} aria-hidden="true">
+          <div className={styles.podiumSkeleton}>
+            {[64, 88, 52].map((h, i) => <Skeleton key={i} width="30%" height={h + 120} radius="var(--r-lg)" />)}
+          </div>
+          {Array.from({ length: 6 }).map((_, i) => <Skeleton key={i} width="100%" height={56} radius="var(--r-md)" />)}
+        </div>
+      ) : rows.length === 0 ? (
+        <EmptyState icon="trophy" title="No rankings yet" message="Play a game to put yourself on the board and start climbing." />
+      ) : (
+        <motion.div key={period} variants={listVariants} initial="initial" animate="enter">
+          {/* Podium */}
+          <div className={styles.podium}>
+            {PODIUM_ORDER.map((idx, col) => {
+              const entry = podium[idx];
+              if (!entry) return null;
+              const tone = PODIUM_TONE[col];
+              return (
+                <motion.div key={entry.rank} className={`${styles.pillar} ${styles[tone]}`} variants={itemVariants}>
+                  <span className={styles.medal}>
+                    {entry.rank === 1 ? <Icon name="trophy" variant="solid" size={22} /> : <Icon name="medal" variant="solid" size={20} />}
+                  </span>
+                  <span className={styles.pAvatar} aria-hidden="true"><Icon name="user" variant="solid" size={22} /></span>
+                  <span className={`${styles.pId} num`}>{entry.maskedId}</span>
+                  <span className={`${styles.pScore} num`}>{formatScore(entry.score)}</span>
+                  <span className={styles.pRank}>{entry.rank}</span>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Ranked list */}
+          <ul className={styles.list}>
+            {rest.map((entry) => (
+              <motion.li key={entry.rank} className={styles.row} variants={itemVariants}>
+                <span className={`${styles.rank} num`}>{entry.rank}</span>
+                <Movement movement={entry.movement} delta={entry.delta} />
+                <span className={styles.rowAvatar} aria-hidden="true"><Icon name="user" size={16} /></span>
+                <span className={`${styles.id} num`}>{entry.maskedId}</span>
+                <span className={`${styles.score} num`}>{formatScore(entry.score)}</span>
               </motion.li>
-            );
-          })}
-        </ol>
+            ))}
+          </ul>
+        </motion.div>
+      )}
 
-        {/* Ranked list — 4th onward */}
-        <motion.ul className={styles.list} variants={listVariants} initial="initial" animate="enter">
-          {rest.map((entry: LeaderboardEntry) => (
-            <motion.li key={entry.rank} variants={itemVariants} className={styles.row}>
-              <span className={`${styles.rank} num`}>{entry.rank}</span>
-              <span className={styles.rowAvatar} aria-hidden="true">{initials(entry.name)}</span>
-              <span className={styles.name}>{entry.name}</span>
-              <span className={`${styles.score} num`}>{formatScore(entry.score)}</span>
-            </motion.li>
-          ))}
-        </motion.ul>
-      </motion.div>
-
-      {/* Own-rank pin */}
-      <div className={styles.pin} aria-label="Your position">
-        <span className={`${styles.rank} num`}>{you.rank}</span>
-        <span className={`${styles.rowAvatar} ${styles.youAvatar}`} aria-hidden="true">YOU</span>
-        <span className={styles.name}>You</span>
-        <span className={`${styles.score} num`}>{formatScore(you.score)}</span>
-      </div>
+      {/* Own row pinned above the bottom nav */}
+      {!loading && rows.length > 0 && (
+        <div className={styles.ownRow}>
+          <span className={`${styles.rank} num`}>{you.rank}</span>
+          <Movement movement={you.movement} delta={you.delta} />
+          <span className={styles.rowAvatar} aria-hidden="true"><Icon name="user" variant="solid" size={16} /></span>
+          <span className={styles.youId}>
+            <span className={styles.youTag}>You</span>
+            <span className={`${styles.id} num`}>{ownMask}</span>
+          </span>
+          <span className={`${styles.score} num`}>{formatScore(score)}</span>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Wordmark } from '../components/layout/Wordmark';
+import { Logo } from '../components/layout/Logo';
 import { EconetLogo } from '../components/layout/EconetLogo';
 import styles from './AuthScreen.module.css';
 
@@ -15,7 +15,7 @@ export function AuthScreen({ children, showLegal = true, showBrand = true }: { c
       <div className={styles.stage}>
         {showBrand && (
           <div className={styles.brand}>
-            <Wordmark size={40} plate />
+            <Logo height={44} />
           </div>
         )}
         <div className={styles.content}>{children}</div>

@@ -19,26 +19,35 @@ export interface Game {
   rating: number;
   /** Raw play count; formatted for display at render time. */
   plays: number;
-  trending?: boolean;
   isNew?: boolean;
+}
+
+/** The service prices in both currencies; the client only ever formats. */
+export type CurrencyCode = 'USD' | 'ZWG';
+export interface Money {
+  USD: number;
+  ZWG: number;
 }
 
 export interface PlanTier {
   id: 'daily' | 'weekly' | 'monthly';
   label: string;
-  price: number;
-  /** Currency code shown to the user. */
-  currency: 'ZiG';
+  /** Both amounts supplied by the pricing service — never converted client-side. */
+  price: Money;
   cadence: string;
-  perDay?: string;
   highlight?: string;
   recommended?: boolean;
 }
 
 export interface LeaderboardEntry {
   rank: number;
-  name: string;
+  /** Server-masked identifier, e.g. "+2637****6935". Never a name or full number. */
+  maskedId: string;
   score: number;
+  /** Rank change since the previous period. */
+  movement?: 'up' | 'down' | 'same';
+  /** Positions moved (for the movement indicator). */
+  delta?: number;
   isYou?: boolean;
 }
 
@@ -46,7 +55,8 @@ export type LeaderboardPeriod = 'daily' | 'weekly';
 
 export interface PrizeRow {
   rank: number;
-  value: number;
+  /** Per-currency prize value, supplied by the prize service. */
+  value: Money;
 }
 
 export interface Achievement {

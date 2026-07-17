@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import { GameIcon } from '../../icons/games/GameIcon';
 import { Icon } from '../../icons/Icon';
 import { Chip } from '../ui/Chip';
+import { Ribbon } from '../ui/Ribbon';
+import { StarRating } from '../ui/StarRating';
 import { CATEGORIES } from '../../config/catalogue';
 import { formatPlays } from '../../utils/format';
 import type { Game } from '../../types';
@@ -28,22 +30,21 @@ export function GameCard({ game, variant = 'grid' }: GameCardProps) {
   return (
     <article
       className={`${styles.card} ${styles[variant]}`}
-      style={{ ['--art' as string]: cat.grad }}
       tabIndex={0}
       role="button"
       aria-label={`${game.title}, ${cat.label}. Play now.`}
       onClick={open}
       onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), open())}
     >
-      <div className={styles.art} aria-hidden="true">
+      <div className={styles.art}>
         <GameIcon game={game.icon} fill className={styles.icon} />
-        <span className={styles.scrim} />
       </div>
 
-      <div className={styles.badges} aria-hidden="true">
-        {game.trending && <Chip static tone="live" className={styles.badge}>Trending</Chip>}
-        {game.isNew && <Chip static tone="reward" className={styles.badge}>New</Chip>}
-      </div>
+      {game.isNew && (
+        <div className={styles.badges} aria-hidden="true">
+          <Ribbon variant="new">New</Ribbon>
+        </div>
+      )}
 
       <div className={styles.info}>
         <div className={styles.meta}>
@@ -53,7 +54,10 @@ export function GameCard({ game, variant = 'grid' }: GameCardProps) {
         <h3 className={styles.title}>{game.title}</h3>
         {(variant === 'hero' || variant === 'featured') && <p className={styles.tagline}>{game.tagline}</p>}
         <div className={styles.footer}>
-          <span className={styles.rating}><Icon name="star" variant="solid" size={14} /> {game.rating.toFixed(1)}</span>
+          <span className={styles.rating}>
+            <StarRating value={game.rating} readOnly size={14} ariaLabel={`Rated ${game.rating.toFixed(1)} out of 5`} />
+            <span className={`${styles.ratingNum} num`}>{game.rating.toFixed(1)}</span>
+          </span>
           <span className={styles.play}><Icon name="play" variant="solid" size={14} /> Play</span>
         </div>
       </div>

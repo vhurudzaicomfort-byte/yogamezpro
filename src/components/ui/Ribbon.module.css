@@ -1,0 +1,49 @@
+.ribbon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 13px 5px 11px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.66rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #fff;
+  /* real tag geometry: notched tail on the right */
+  clip-path: polygon(0 0, 100% 0, calc(100% - 7px) 50%, 100% 100%, 0 100%);
+  /* contact shadow follows the clipped silhouette */
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.45));
+  /* top-left light: lighter top, base bottom */
+  background-image: linear-gradient(158deg, rgba(255, 255, 255, 0.28), rgba(0, 0, 0, 0.12));
+  isolation: isolate;
+}
+/* fold wedge where the ribbon meets the card edge */
+.ribbon::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  border-width: 0 4px 4px 0;
+  border-style: solid;
+  border-color: transparent rgba(0, 0, 0, 0.4) transparent transparent;
+}
+.label { position: relative; z-index: 1; line-height: 1; }
+
+.new { background-color: var(--econet-cyan-600); color: #04222f; }
+.new { background-image: linear-gradient(158deg, #8ad6f0, #33a7d1); }
+.featured { background-image: linear-gradient(158deg, #ffb15a, #e0691c); color: #2a1400; }
+.live { background-image: linear-gradient(158deg, #ff5a66, #c8121f); }
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+  animation: livePulse 1.6s var(--ease-in-out) infinite;
+}
+@keyframes livePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(0.82); }
+}

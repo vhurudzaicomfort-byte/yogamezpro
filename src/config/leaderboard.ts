@@ -2,7 +2,7 @@ import type { Achievement, LeaderboardEntry, LeaderboardPeriod } from '../types'
 
 /** Player stats preserved from the production Profile/Leaderboard screens. */
 export const PLAYER = {
-  name: 'Player',
+  name: 'Player', // used only on Profile, never on the leaderboard
   dailyScore: 532,
   weeklyScore: 56555,
   dailyPosition: 25,
@@ -10,30 +10,39 @@ export const PLAYER = {
   bestScoreToBeat: 610,
 };
 
-const NAMES = [
-  'Tariro M.', 'Kuda Z.', 'Rufaro N.', 'Blessing C.', 'Nyasha T.',
-  'Farai M.', 'Chipo D.', 'Tendai R.', 'Simba K.', 'Rutendo P.',
-  'Munashe H.', 'Anesu V.',
+/**
+ * Seed leaderboard rows. Identifiers are stored ALREADY MASKED — full MSISDNs
+ * are never present in the client payload (correction §7). In production these
+ * masked strings arrive from the server pre-masked; here they are fixed seed.
+ */
+const MASKED = [
+  '+2637****6935', '+2637****1042', '+2638****7781', '+2637****3390', '+2637****5518',
+  '+2638****2264', '+2637****9107', '+2637****4453', '+2638****8829', '+2637****6672',
+  '+2637****0195', '+2638****3348',
 ];
+const MOVES: LeaderboardEntry['movement'][] = ['up', 'same', 'down', 'up', 'up', 'down', 'same', 'up', 'down', 'up', 'same', 'down'];
 
-const build = (seed: number, top: number): LeaderboardEntry[] => {
-  const rows: LeaderboardEntry[] = NAMES.map((name, i) => ({
+const build = (top: number, spread: number): LeaderboardEntry[] =>
+  MASKED.map((maskedId, i) => ({
     rank: i + 1,
-    name,
-    score: Math.round(top - i * (top / 22) - (i % 3) * seed),
+    maskedId,
+    score: Math.round(top - i * spread - (i % 3) * (spread * 0.18)),
+    movement: MOVES[i],
+    delta: MOVES[i] === 'same' ? 0 : 1 + (i % 3),
   }));
-  // Pin "You" at the player's known position for each period.
-  return rows;
-};
 
 export const LEADERBOARDS: Record<LeaderboardPeriod, LeaderboardEntry[]> = {
-  daily: build(7, 4200),
-  weekly: build(19, 98230),
+  daily: build(4200, 118),
+  weekly: build(98230, 3120),
 };
 
-export const YOUR_RANK: Record<LeaderboardPeriod, LeaderboardEntry> = {
-  daily: { rank: PLAYER.dailyPosition, name: 'You', score: PLAYER.dailyScore, isYou: true },
-  weekly: { rank: PLAYER.weeklyPosition, name: 'You', score: PLAYER.weeklyScore, isYou: true },
+/**
+ * The current user's own row. `maskedId` is masked from their own session
+ * number at render time (they legitimately hold their own number).
+ */
+export const YOUR_RANK: Record<LeaderboardPeriod, Omit<LeaderboardEntry, 'maskedId'>> = {
+  daily: { rank: PLAYER.dailyPosition, score: PLAYER.dailyScore, movement: 'up', delta: 3, isYou: true },
+  weekly: { rank: PLAYER.weeklyPosition, score: PLAYER.weeklyScore, movement: 'down', delta: 2, isYou: true },
 };
 
 export const ACHIEVEMENTS: Achievement[] = [
@@ -41,6 +50,6 @@ export const ACHIEVEMENTS: Achievement[] = [
   { id: 'streak-3', label: '3-Day Streak', description: 'Played 3 days running', icon: 'flame', unlocked: true },
   { id: 'top-100', label: 'Top 100', description: 'Break into the weekly top 100', icon: 'medal', unlocked: true },
   { id: 'high-roller', label: 'High Roller', description: 'Score over 1,000 in a session', icon: 'star', unlocked: false, progress: 0.53 },
-  { id: 'collector', label: 'Collector', description: 'Play all launch titles', icon: 'grid', unlocked: false, progress: 0.75 },
+  { id: 'collector', label: 'Collector', description: 'Play all four launch titles', icon: 'grid', unlocked: false, progress: 0.75 },
   { id: 'champion', label: 'Champion', description: 'Finish #1 on a daily board', icon: 'trophy', unlocked: false, progress: 0.2 },
 ];

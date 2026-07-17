@@ -11,7 +11,9 @@
 }
 .main {
   flex: 1;
-  padding-bottom: calc(var(--bottomnav-h) + env(safe-area-inset-bottom, 0px) + 1rem);
+  /* Reserve the bottom-nav space (+ safe area) so the last item, a submit
+     button, or the final leaderboard row is never hidden behind the bar. */
+  padding-bottom: calc(var(--nav-bottom-inset) + 1.25rem);
 }
 .page {
   min-height: 100%;

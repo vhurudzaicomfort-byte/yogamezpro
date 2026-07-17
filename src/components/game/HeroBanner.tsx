@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { GameIcon } from '../../icons/games/GameIcon';
 import { Button } from '../ui/Button';
-import { Chip } from '../ui/Chip';
+import { Ribbon } from '../ui/Ribbon';
 import type { Game } from '../../types';
 import styles from './HeroBanner.module.css';
 
@@ -22,7 +22,7 @@ export function HeroBanner({ game, kicker = 'Continue Playing', onPlay }: { game
       <span className={styles.rim} aria-hidden="true" />
 
       <div className={styles.body}>
-        <Chip static tone="reward" className={styles.kicker}>{kicker}</Chip>
+        <span className={styles.kicker}><Ribbon variant="featured">{kicker}</Ribbon></span>
         <h2 className={styles.title}>{game.title}</h2>
         <p className={styles.copy}>Pick up where you left off and stand a chance to win your share of the prizes.</p>
         <Button variant="accent" size="md" iconLeft="play" onClick={play}>Play now</Button>

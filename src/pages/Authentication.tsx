@@ -5,12 +5,15 @@ import { AuthScreen } from '../layouts/AuthScreen';
 import { Button } from '../components/ui/Button';
 import { BrandedLoader } from '../components/layout/BrandedLoader';
 import { useSession } from '../hooks/useSession';
+import { useCurrency } from '../hooks/useCurrency';
+import { formatMoney } from '../utils/currency';
 import styles from './Authentication.module.css';
 
 /** Econet auth result. Verifying → Success (preserved), with a failure path. */
 export function Authentication() {
   const navigate = useNavigate();
-  const { authenticate } = useSession();
+  const { authenticate, plan } = useSession();
+  const { currency } = useCurrency();
   const [phase, setPhase] = useState<'verifying' | 'success'>('verifying');
 
   useEffect(() => {
@@ -52,6 +55,11 @@ export function Authentication() {
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }} className={styles.done}>
             <h1 className="t-h1">Success!</h1>
             <p className={styles.sub}>You've been successfully authenticated. Welcome to YoGamezPro.</p>
+            {plan && (
+              <p className={styles.billing}>
+                Your <strong>{plan.label}</strong> plan is active — <strong className="num">{formatMoney(plan.price, currency)}</strong> {plan.cadence}.
+              </p>
+            )}
             <Button variant="primary" size="lg" block iconRight="chevronRight" onClick={() => navigate('/home', { replace: true })}>
               Continue
             </Button>

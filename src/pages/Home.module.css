@@ -7,6 +7,14 @@
   scroll-snap-type: x proximity;
 }
 .chips > * { scroll-snap-align: start; flex: 0 0 auto; }
-.gridSection { margin-top: 0.6rem; }
-.gridHead { padding: 0 1rem; margin-bottom: 0.8rem; }
-.gridTitle { font-size: 1.2rem; font-weight: 700; color: var(--text); }
+.gridSection { margin-top: 1.4rem; }
+.gridHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 1rem;
+  margin-bottom: 0.9rem;
+}
+.gridTitle { font-size: 1.3rem; font-weight: 700; color: var(--text); }
+.count { font-size: 0.8rem; font-weight: 600; color: var(--text-dim); }

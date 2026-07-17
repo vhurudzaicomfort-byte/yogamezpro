@@ -16,6 +16,18 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // Set the theme before first paint — no flash of the wrong theme or logo.
+      (function () {
+        try {
+          var t = localStorage.getItem('ygp.theme');
+          if (t !== 'dark' && t !== 'light') t = 'dark';
+          document.documentElement.setAttribute('data-theme', t);
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

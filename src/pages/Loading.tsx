@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Wordmark } from '../components/layout/Wordmark';
+import { Logo } from '../components/layout/Logo';
 import { BrandedLoader } from '../components/layout/BrandedLoader';
 import { useSession } from '../hooks/useSession';
 import styles from './Loading.module.css';
@@ -28,7 +28,7 @@ export function Loading() {
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       >
-        <Wordmark size={44} plate />
+        <Logo height={52} />
         <p className={styles.tag}>Premium Mobile Gaming</p>
       </motion.div>
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>

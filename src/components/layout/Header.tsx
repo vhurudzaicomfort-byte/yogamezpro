@@ -1,6 +1,7 @@
 import { Icon } from '../../icons/Icon';
 import { useTheme } from '../../hooks/useTheme';
-import { Wordmark } from './Wordmark';
+import { useScrolled } from '../../hooks/useScrolled';
+import { Logo } from './Logo';
 import styles from './Header.module.css';
 
 interface HeaderProps {
@@ -13,10 +14,11 @@ interface HeaderProps {
 /** App header: brand/title (left) · theme toggle + menu (right). */
 export function Header({ title, onMenu, brand }: HeaderProps) {
   const { theme, toggle } = useTheme();
+  const scrolled = useScrolled();
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
       <div className={styles.left}>
-        {brand ? <Wordmark size={24} /> : <h1 className={styles.title}>{title}</h1>}
+        {brand ? <Logo height={24} /> : <h1 className={styles.title}>{title}</h1>}
       </div>
       <div className={styles.actions}>
         <button className={styles.iconBtn} onClick={toggle} aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}>

@@ -1,8 +1,8 @@
 import { PLANS } from '../config/catalogue';
-import { formatZiG } from '../utils/format';
+import { formatMoney } from '../utils/currency';
 import styles from './content.module.css';
 
-/** Terms & Conditions — reflects the preserved ZiG billing model. */
+/** Terms & Conditions — reflects the preserved ZWG billing model. */
 export function Legal() {
   return (
     <div className={styles.page}>
@@ -22,8 +22,10 @@ export function Legal() {
       <div className={styles.section}>
         <h2 className={styles.h}>2. Subscription &amp; billing</h2>
         <p className={styles.p}>
-          Plans are billed in Zimbabwe Gold (ZiG) to your Econet line: <strong>Daily {formatZiG(PLANS[0].price)}</strong>,{' '}
-          <strong>Weekly {formatZiG(PLANS[1].price)}</strong> and <strong>Monthly {formatZiG(PLANS[2].price)}</strong>.
+          Plans are billed in Zimbabwe Gold (ZWG) or USD to your Econet line:{' '}
+          <strong>Daily {formatMoney(PLANS[0].price, 'ZWG')}</strong>,{' '}
+          <strong>Weekly {formatMoney(PLANS[1].price, 'ZWG')}</strong> and{' '}
+          <strong>Monthly {formatMoney(PLANS[2].price, 'ZWG')}</strong>.
           Subscriptions renew automatically each period until cancelled and require sufficient airtime balance.
         </p>
       </div>
@@ -39,7 +41,7 @@ export function Legal() {
       <div className={styles.section}>
         <h2 className={styles.h}>4. Prizes &amp; rewards</h2>
         <p className={styles.p}>
-          Airtime and ZiG cash prizes are awarded based on leaderboard rank and Lucky Wheel outcomes.
+          Airtime and ZWG cash prizes are awarded based on leaderboard rank and Lucky Wheel outcomes.
           Rewards are credited to your Econet line and have no cash-alternative unless stated.
         </p>
       </div>

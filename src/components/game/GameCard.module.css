@@ -16,30 +16,25 @@
 .card:active { transform: translateY(-1px) scale(0.99); }
 .card:focus-visible { outline: none; box-shadow: var(--focus-ring); }
 
-/* ---- Artwork plate ---- */
+/* ---- Artwork plate ----
+   Icons are square plates with their OWN baked corners. The art holds no
+   background colour, so nothing peeks past the plate's rounded corners; any
+   sliver at the card's rounded top is the card surface itself (correction §11). */
 .art {
   position: relative;
-  display: grid;
-  place-items: center;
-  background: var(--art);
+  display: block;
   overflow: hidden;
   aspect-ratio: 1 / 1;
+  background: transparent;
 }
 .icon {
-  position: relative;
-  z-index: 1;
+  display: block;
   transition: transform var(--dur-slow) var(--ease-out);
 }
-.card:hover .icon { transform: scale(1.05); }
-.scrim {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 40%, rgba(3, 12, 20, 0.55) 100%);
-}
+.card:hover .icon { transform: scale(1.04); }
 
-/* ---- Badges ---- */
-.badges { position: absolute; top: 10px; left: 10px; z-index: 3; display: flex; gap: 6px; }
-.badge { padding: 0.28rem 0.6rem; font-size: 0.68rem; box-shadow: var(--shadow-1); backdrop-filter: blur(6px); }
+/* ---- Badge ribbon (mounted, cut into the card edge) ---- */
+.badges { position: absolute; top: 12px; left: 0; z-index: 3; }
 
 /* ---- Info panel ---- */
 .info { display: flex; flex-direction: column; gap: 0.4rem; padding: 0.8rem 0.9rem 0.9rem; }
@@ -50,7 +45,8 @@
 .title { font-size: 1.05rem; font-weight: 700; color: var(--text); line-height: 1.1; }
 .tagline { font-size: 0.82rem; color: var(--text-muted); line-height: 1.4; }
 .footer { display: flex; align-items: center; justify-content: space-between; margin-top: 0.2rem; }
-.rating { display: inline-flex; align-items: center; gap: 4px; font-weight: 700; font-size: 0.82rem; color: var(--gold); }
+.rating { display: inline-flex; align-items: center; gap: 5px; }
+.ratingNum { font-weight: 700; font-size: 0.82rem; color: var(--gold); }
 .play {
   display: inline-flex; align-items: center; gap: 5px;
   font-family: var(--font-display); font-weight: 700; font-size: 0.82rem;

@@ -6,8 +6,8 @@ import styles from './content.module.css';
 const FAQS = [
   { q: 'What is YoGamezPro?', a: "It's Econet's premium mobile gaming service — unlimited, ad-free access to a growing library of HTML5 games, with leaderboards and daily airtime rewards. No downloads, just tap and play." },
   { q: 'How do I subscribe?', a: 'Enter your Econet number on the Subscribe screen, pick a Daily, Weekly or Monthly plan, and confirm the one-time PIN we send by SMS. You’ll be playing in seconds.' },
-  { q: 'How much does it cost?', a: 'Plans are billed in ZiG: Daily ZiG 0.84, Weekly ZiG 5.88, or Monthly ZiG 10.09. Subscriptions renew automatically until you cancel.' },
-  { q: 'How do I win prizes?', a: 'Score points by playing. Your points rank you on the daily and weekly leaderboards — finish in the top 10 to win airtime or ZiG cash. You also get a free daily Lucky Wheel spin.' },
+  { q: 'How much does it cost?', a: 'Plans are billed in ZWG or USD to your Econet line: Daily ZWG 0.84, Weekly ZWG 5.88, or Monthly ZWG 10.09. Subscriptions renew automatically until you cancel.' },
+  { q: 'How do I win prizes?', a: 'Score points by playing. Your points rank you on the daily and weekly leaderboards — finish in the top 10 to win airtime or cash. You also get a free daily Lucky Wheel spin.' },
   { q: 'What is the Lucky Wheel?', a: 'A free daily spin for a chance to win instant Econet airtime. One spin per day — come back tomorrow for another.' },
   { q: 'How do I cancel?', a: 'Open the side menu and tap Unsubscribe, or use your Econet self-service channel. You keep access until the end of your paid period.' },
   { q: 'Do I need to download anything?', a: 'No. Every game runs instantly in your browser on Android, tablet or desktop — nothing to install or update.' },

@@ -18,3 +18,14 @@
 .done { display: flex; flex-direction: column; align-items: center; gap: 0.7rem; width: 100%; }
 .done h1 { margin-top: 0.4rem; }
 .sub { color: var(--text-muted); font-size: 0.92rem; max-width: 300px; margin-bottom: 0.6rem; }
+.billing {
+  font-size: 0.9rem;
+  color: var(--text);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 0.7rem 1rem;
+  margin-bottom: 0.8rem;
+  max-width: 320px;
+}
+.billing strong { color: var(--brand); }

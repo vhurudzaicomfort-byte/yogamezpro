@@ -1,0 +1,13 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  line-height: 0;
+}
+.logo img {
+  width: auto;
+  display: block;
+}
+/* Theme-aware swap — both mounted, no flash on load/toggle */
+.logo img[data-logo='light'] { display: none; }
+:global([data-theme='light']) .logo img[data-logo='dark'] { display: none; }
+:global([data-theme='light']) .logo img[data-logo='light'] { display: block; }

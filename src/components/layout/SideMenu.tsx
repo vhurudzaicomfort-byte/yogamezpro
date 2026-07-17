@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { backdropVariants, drawerVariants } from '../../animations/variants';
 import { Icon, type IconName } from '../../icons/Icon';
-import { Wordmark } from './Wordmark';
+import { Logo } from './Logo';
 import { EconetLogo } from './EconetLogo';
 import { useSession } from '../../hooks/useSession';
 import styles from './SideMenu.module.css';
@@ -57,7 +57,7 @@ export function SideMenu({ open, onClose }: SideMenuProps) {
             aria-label="Navigation menu"
           >
             <div className={styles.top}>
-              <Wordmark size={26} plate />
+              <Logo height={28} />
               <button className={styles.close} onClick={onClose} aria-label="Close menu">
                 <Icon name="close" size={22} />
               </button>

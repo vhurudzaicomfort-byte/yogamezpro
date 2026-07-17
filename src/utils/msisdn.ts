@@ -23,6 +23,21 @@ export const formatLocal = (local: string): string => {
 export const toE164 = (local: string): string => `${COUNTRY_CODE}${normalizeLocal(local)}`;
 
 /**
+ * Mask an MSISDN for public display (correction §7): country + network prefix
+ * visible, middle masked, last 4 shown → `+2637****6935`. In production the
+ * server masks before sending; this shared util is the single source of the
+ * format (and masks the current user's own number, which the client holds).
+ */
+export function maskMsisdn(e164OrLocal: string): string {
+  const digits = e164OrLocal.replace(/\D/g, '');
+  const national = digits.startsWith('263') ? digits.slice(3) : normalizeLocal(digits);
+  if (national.length < 5) return `${COUNTRY_CODE}${'*'.repeat(Math.max(0, national.length))}`;
+  const head = national.slice(0, 1);
+  const last4 = national.slice(-4);
+  return `${COUNTRY_CODE}${head}****${last4}`;
+}
+
+/**
  * Valid = 9 digits starting with a mobile prefix. Returns a specific,
  * screen-reader-friendly error string, or null when valid.
  */

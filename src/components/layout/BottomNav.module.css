@@ -10,11 +10,11 @@
   padding-bottom: env(safe-area-inset-bottom, 0px);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  background: var(--surface-glass);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-top: 1px solid var(--border);
-  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.3);
+  background: var(--nav-surface);
+  backdrop-filter: blur(22px) saturate(1.4);
+  -webkit-backdrop-filter: blur(22px) saturate(1.4);
+  border-top: 1px solid var(--border-strong);
+  box-shadow: 0 -10px 34px rgba(0, 0, 0, 0.4);
 }
 .tab {
   position: relative;

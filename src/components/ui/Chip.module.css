@@ -36,11 +36,9 @@ button.chip:hover { color: var(--text); transform: translateY(-1px); }
   height: 7px;
   border-radius: 50%;
   background: var(--signal-red);
-  box-shadow: 0 0 0 0 rgba(233, 34, 48, 0.6);
-  animation: chippulse 1.6s var(--ease-out) infinite;
+  animation: chippulse 1.6s var(--ease-in-out) infinite;
 }
 @keyframes chippulse {
-  0% { box-shadow: 0 0 0 0 rgba(233, 34, 48, 0.6); }
-  70% { box-shadow: 0 0 0 7px rgba(233, 34, 48, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(233, 34, 48, 0); }
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
 }

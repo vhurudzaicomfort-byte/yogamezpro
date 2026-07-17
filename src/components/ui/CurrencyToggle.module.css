@@ -1,0 +1,32 @@
+.track {
+  display: inline-flex;
+  padding: 3px;
+  gap: 2px;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+}
+.seg {
+  position: relative;
+  padding: 0.4rem 0.95rem;
+  border-radius: var(--r-pill);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  transition: color var(--dur-base) var(--ease-out);
+  min-height: 38px;
+}
+.sm .seg { padding: 0.3rem 0.75rem; min-height: 32px; font-size: 0.76rem; }
+.seg:hover { color: var(--text); }
+.active { color: var(--text-on-accent); }
+.pill {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: var(--r-pill);
+  background: linear-gradient(180deg, var(--econet-cyan), var(--econet-cyan-600));
+  box-shadow: 0 3px 10px rgba(91, 194, 231, 0.4);
+}
+.text { position: relative; z-index: 1; }

@@ -9,13 +9,6 @@ export const formatPlays = (n: number): string => compact.format(n);
 /** 56555 → "56,555". Used on scores / leaderboard. */
 export const formatScore = (n: number): string => grouped.format(n);
 
-/** Money in ZiG, two decimals. 0.84 → "ZiG 0.84". */
-export const formatZiG = (n: number): string =>
-  `ZiG ${n.toFixed(2)}`;
-
-/** Whole-ZiG prize values. 50 → "ZiG 50". */
-export const formatZiGWhole = (n: number): string => `ZiG ${n}`;
-
 /** Airtime USD, two decimals. 0.1 → "$0.10". */
 export const formatUsd = (n: number): string => `$${n.toFixed(2)}`;
 

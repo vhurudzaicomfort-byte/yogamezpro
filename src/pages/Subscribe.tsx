@@ -7,18 +7,21 @@ import { Input } from '../components/ui/Input';
 import { Button } from '../components/ui/Button';
 import { Icon } from '../icons/Icon';
 import { PLANS } from '../config/catalogue';
-import { formatZiG } from '../utils/format';
+import { formatMoney } from '../utils/currency';
 import { validateMsisdn, toE164, formatLocal, COUNTRY_CODE } from '../utils/msisdn';
 import { subscribe } from '../services/authService';
 import { useSession } from '../hooks/useSession';
+import { useCurrency } from '../hooks/useCurrency';
+import { CurrencyToggle } from '../components/ui/CurrencyToggle';
 import { itemVariants, listVariants } from '../animations/variants';
 import type { PlanTier } from '../types';
 import styles from './Subscribe.module.css';
 
-/** Subscribe: pick a ZiG plan + enter MSISDN → OTP. Prices preserved (§3). */
+/** Subscribe: pick a plan + currency + enter MSISDN → OTP. Prices preserved (§3, §6). */
 export function Subscribe() {
   const navigate = useNavigate();
   const { setMsisdn, setPlan } = useSession();
+  const { currency } = useCurrency();
   const [local, setLocal] = useState('');
   const [selected, setSelected] = useState<PlanTier>(PLANS.find((p) => p.recommended) ?? PLANS[0]);
   const [error, setError] = useState<string | null>(null);
@@ -53,7 +56,10 @@ export function Subscribe() {
       />
 
       <div>
-        <p className="t-overline" style={{ marginBottom: '0.6rem', textAlign: 'center' }}>Select package</p>
+        <div className={styles.selectHead}>
+          <p className="t-overline" style={{ margin: 0 }}>Select package</p>
+          <CurrencyToggle size="sm" />
+        </div>
         <motion.ul className={styles.plans} variants={listVariants} initial="initial" animate="enter">
           {PLANS.map((plan) => {
             const active = plan.id === selected.id;
@@ -70,7 +76,7 @@ export function Subscribe() {
                     {plan.highlight && <span className={styles.tagline}>{plan.highlight}</span>}
                   </span>
                   <span className={styles.planPrice}>
-                    <span className={`${styles.price} num`}>{formatZiG(plan.price)}</span>
+                    <span className={`${styles.price} num`}>{formatMoney(plan.price, currency)}</span>
                     <span className={styles.cadence}>{plan.cadence}</span>
                   </span>
                   {plan.recommended && <span className={styles.ribbon}>Popular</span>}
@@ -82,7 +88,7 @@ export function Subscribe() {
       </div>
 
       <Button variant="primary" size="lg" block loading={busy} onClick={submit}>
-        Subscribe — {formatZiG(selected.price)}
+        Subscribe — {formatMoney(selected.price, currency)}
       </Button>
     </AuthScreen>
   );

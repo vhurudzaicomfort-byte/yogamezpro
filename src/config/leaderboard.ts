@@ -4,9 +4,9 @@ import type { Achievement, LeaderboardEntry, LeaderboardPeriod } from '../types'
 export const PLAYER = {
   name: 'Player', // used only on Profile, never on the leaderboard
   dailyScore: 532,
-  weeklyScore: 56555,
+  monthlyScore: 56555,
   dailyPosition: 25,
-  weeklyPosition: 125,
+  monthlyPosition: 125,
   bestScoreToBeat: 610,
 };
 
@@ -33,7 +33,7 @@ const build = (top: number, spread: number): LeaderboardEntry[] =>
 
 export const LEADERBOARDS: Record<LeaderboardPeriod, LeaderboardEntry[]> = {
   daily: build(4200, 118),
-  weekly: build(98230, 3120),
+  monthly: build(98230, 3120),
 };
 
 /**
@@ -42,13 +42,13 @@ export const LEADERBOARDS: Record<LeaderboardPeriod, LeaderboardEntry[]> = {
  */
 export const YOUR_RANK: Record<LeaderboardPeriod, Omit<LeaderboardEntry, 'maskedId'>> = {
   daily: { rank: PLAYER.dailyPosition, score: PLAYER.dailyScore, movement: 'up', delta: 3, isYou: true },
-  weekly: { rank: PLAYER.weeklyPosition, score: PLAYER.weeklyScore, movement: 'down', delta: 2, isYou: true },
+  monthly: { rank: PLAYER.monthlyPosition, score: PLAYER.monthlyScore, movement: 'down', delta: 2, isYou: true },
 };
 
 export const ACHIEVEMENTS: Achievement[] = [
   { id: 'first-blood', label: 'First Play', description: 'Played your first game', icon: 'play', unlocked: true },
   { id: 'streak-3', label: '3-Day Streak', description: 'Played 3 days running', icon: 'flame', unlocked: true },
-  { id: 'top-100', label: 'Top 100', description: 'Break into the weekly top 100', icon: 'medal', unlocked: true },
+  { id: 'top-100', label: 'Top 100', description: 'Break into the monthly top 100', icon: 'medal', unlocked: true },
   { id: 'high-roller', label: 'High Roller', description: 'Score over 1,000 in a session', icon: 'star', unlocked: false, progress: 0.53 },
   { id: 'collector', label: 'Collector', description: 'Play all four launch titles', icon: 'grid', unlocked: false, progress: 0.75 },
   { id: 'champion', label: 'Champion', description: 'Finish #1 on a daily board', icon: 'trophy', unlocked: false, progress: 0.2 },

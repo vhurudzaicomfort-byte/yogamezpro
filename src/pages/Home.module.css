@@ -1,12 +1,6 @@
 .home { padding-top: 0.4rem; }
-.chips {
-  display: flex;
-  gap: 0.5rem;
-  overflow-x: auto;
-  padding: 0.4rem 1rem 0.6rem;
-  scroll-snap-type: x proximity;
-}
-.chips > * { scroll-snap-align: start; flex: 0 0 auto; }
+/* One deliberate section gap between the hero and the grid — the hero's own
+   1rem margin collapses into this, leaving a single consistent 1.4rem band. */
 .gridSection { margin-top: 1.4rem; }
 .gridHead {
   display: flex;

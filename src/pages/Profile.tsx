@@ -38,7 +38,7 @@ export function Profile() {
           <p className={styles.congrats}>Congratulations on your new score!</p>
           <span className={styles.rankChip}>
             <Icon name="flag" variant="solid" size={14} />
-            Weekly rank {ordinal(PLAYER.weeklyPosition)}
+            Monthly rank {ordinal(PLAYER.monthlyPosition)}
           </span>
         </div>
       </motion.header>
@@ -48,7 +48,7 @@ export function Profile() {
         {[
           { label: 'Games played', value: GAMES_PLAYED },
           { label: 'Day streak', value: DAY_STREAK },
-          { label: 'Best score', value: formatScore(PLAYER.weeklyScore) },
+          { label: 'Best score', value: formatScore(PLAYER.monthlyScore) },
         ].map((s) => (
           <div key={s.label} className={styles.quickStat}>
             <span className={`${styles.quickValue} num`}>{s.value}</span>

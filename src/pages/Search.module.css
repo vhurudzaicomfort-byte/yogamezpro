@@ -1,13 +1,6 @@
 .page { padding: 0.8rem 0 1rem; }
 .searchWrap { padding: 0 1rem; }
-.chips {
-  display: flex;
-  gap: 0.5rem;
-  overflow-x: auto;
-  padding: 0.9rem 1rem 0.5rem;
-}
-.chips > * { flex: 0 0 auto; }
-.count { padding: 0 1rem; font-size: 0.8rem; color: var(--text-dim); font-weight: 600; margin-bottom: 0.6rem; }
+.count { padding: 0 1rem; margin-top: 0.9rem; font-size: 0.8rem; color: var(--text-dim); font-weight: 600; margin-bottom: 0.6rem; }
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

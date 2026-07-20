@@ -33,7 +33,7 @@ const PODIUM_TONE = ['silver', 'gold', 'bronze'] as const;
 
 /**
  * Leaderboard (correction §5, §7). Light + dark, never empty: brand header
- * band, Daily/Weekly tabs, top-3 podium, a masked ranked list (no names, ever)
+ * band, Daily/Monthly tabs, top-3 podium, a masked ranked list (no names, ever)
  * with movement indicators, and the current user's own row pinned above the
  * bottom nav. Includes a loading skeleton and a designed empty state.
  */
@@ -54,8 +54,8 @@ export function Leaderboard() {
   const you = YOUR_RANK[period];
   const ownMask = msisdn ? maskMsisdn(msisdn) : '+2637****0000';
 
-  const score = period === 'daily' ? PLAYER.dailyScore : PLAYER.weeklyScore;
-  const position = period === 'daily' ? PLAYER.dailyPosition : PLAYER.weeklyPosition;
+  const score = period === 'daily' ? PLAYER.dailyScore : PLAYER.monthlyScore;
+  const position = period === 'daily' ? PLAYER.dailyPosition : PLAYER.monthlyPosition;
 
   return (
     <div className={styles.page}>
@@ -73,7 +73,7 @@ export function Leaderboard() {
 
       <div className={styles.controls}>
         <SegmentedControl
-          segments={[{ value: 'daily', label: 'Daily' }, { value: 'weekly', label: 'Weekly' }]}
+          segments={[{ value: 'daily', label: 'Daily' }, { value: 'monthly', label: 'Monthly' }]}
           value={period}
           onChange={(v) => setPeriod(v)}
           ariaLabel="Leaderboard period"

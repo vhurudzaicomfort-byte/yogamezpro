@@ -54,7 +54,7 @@ export interface LeaderboardEntry {
   isYou?: boolean;
 }
 
-export type LeaderboardPeriod = 'daily' | 'weekly';
+export type LeaderboardPeriod = 'daily' | 'monthly';
 
 export interface PrizeRow {
   rank: number;

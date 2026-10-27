@@ -5,6 +5,7 @@ import { Header } from '../components/layout/Header';
 import { BottomNav } from '../components/layout/BottomNav';
 import { SideMenu } from '../components/layout/SideMenu';
 import { pageVariants } from '../animations/variants';
+import { CampaignOverlay, CampaignPopups } from '../campaign/Campaign';
 import styles from './AppLayout.module.css';
 
 /** Route → header config. */
@@ -18,6 +19,7 @@ const TITLES: Record<string, { title?: string; brand?: boolean }> = {
   '/faq': { title: 'FAQs' },
   '/how-to': { title: 'How To' },
   '/privacy': { title: 'Privacy Policy' },
+  '/beat-the-boss': { title: 'Beat the Boss' },
 };
 
 /**
@@ -53,6 +55,8 @@ export function AppLayout() {
 
       <BottomNav />
       <SideMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
+      <CampaignOverlay />
+      <CampaignPopups />
     </div>
   );
 }

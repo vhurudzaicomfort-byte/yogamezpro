@@ -3,6 +3,8 @@ import { HeroBanner } from '../components/game/HeroBanner';
 import { GameGrid } from '../components/game/GameGrid';
 import { useWheel } from '../hooks/useWheel';
 import { GAMES } from '../config/catalogue';
+import { CampaignBanner } from '../campaign/Campaign';
+import { param } from '../campaign/campaignData';
 import styles from './Home.module.css';
 
 /**
@@ -19,12 +21,13 @@ export function Home() {
   useEffect(() => {
     const t = setTimeout(() => setLoading(false), 700);
     // Auto-offer the Lucky Wheel on land, honouring the once-per-day cap.
-    const w = setTimeout(() => offerIfEligible(), 1400);
+    const w = setTimeout(() => { if (param('demo') !== '1') offerIfEligible(); }, 1400);
     return () => { clearTimeout(t); clearTimeout(w); };
   }, [offerIfEligible]);
 
   return (
     <div className={styles.home}>
+      <CampaignBanner />
       <HeroBanner />
 
       <section className={styles.gridSection}>

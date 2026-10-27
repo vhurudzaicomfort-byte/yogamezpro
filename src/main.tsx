@@ -2,12 +2,16 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import './styles/globals.css';
+import './campaign/campaign.css';
+import { bootstrapDemo } from './campaign/campaignData';
 import { ThemeProvider } from './hooks/useTheme';
 import { SessionProvider } from './hooks/useSession';
 import { CurrencyProvider } from './hooks/useCurrency';
 import { ToastProvider } from './hooks/useToast';
 import { WheelProvider } from './hooks/useWheel';
 import { App } from './App';
+
+bootstrapDemo();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

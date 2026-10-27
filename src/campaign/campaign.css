@@ -1,0 +1,148 @@
+/**
+ * Christmas campaign skin — layered on top of the core tokens, scoped to
+ * html[data-campaign='xmas'] so it can be switched off in one place.
+ */
+:root {
+  --xmas-red: #d7182a;
+  --xmas-red-600: #a90f1f;
+  --xmas-gold: #f5c344;
+  --xmas-gold-300: #ffe08a;
+  --xmas-ribbon: linear-gradient(100deg, #a90f1f 0%, #e92230 45%, #ff5a66 60%, #c8121f 100%);
+  --xmas-night: radial-gradient(130% 90% at 50% -10%, #2f3fb0 0%, #1b2878 38%, #0b1446 75%, #060b2c 100%);
+}
+
+/* Desktop canvas: festive night sky framing the mobile-first stage */
+html[data-campaign='xmas'] body {
+  background: var(--xmas-night) fixed;
+}
+html[data-campaign='xmas'][data-theme='light'] body {
+  background: radial-gradient(130% 90% at 50% -10%, #ffffff 0%, #dcebfa 45%, #b9d3f0 100%) fixed;
+}
+
+/* Header: thin ribbon edge + bauble on the brand row */
+html[data-campaign='xmas'] header[class*='header'] {
+  border-bottom: 3px solid transparent;
+  border-image: var(--xmas-ribbon) 1;
+}
+
+/* Bottom nav active glow picks up festive gold */
+html[data-campaign='xmas'] nav[aria-label='Primary'] [class*='active'] {
+  color: var(--xmas-gold);
+}
+html[data-campaign='xmas'][data-theme='light'] nav[aria-label='Primary'] [class*='active'] {
+  color: var(--xmas-red-600);
+}
+
+/* ---- Snowfall overlay ---- */
+.xmas-snow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 30;
+  overflow: hidden;
+}
+.xmas-snow i {
+  filter: blur(0.4px);
+  position: absolute;
+  top: -12px;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0.75;
+  animation: xmas-fall linear infinite;
+}
+html[data-theme='light'] .xmas-snow i { background: #9fc3ea; opacity: 0.55; }
+@keyframes xmas-fall {
+  to { transform: translateY(110vh) translateX(24px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .xmas-snow i { animation: none; }
+}
+
+/* ---- Desktop side decor (outside the 440px stage) ---- */
+.xmas-decor { display: none; }
+@media (min-width: 900px) {
+  .xmas-decor {
+    display: block;
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .xmas-decor .side {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: calc((100vw - 440px) / 2 - 64px);
+    max-width: 420px;
+    color: #fff;
+    font-family: var(--font-display);
+  }
+  html[data-theme='light'] .xmas-decor .side { color: #0b2540; }
+  .xmas-decor .left { left: 48px; }
+  .xmas-decor .right { right: 48px; text-align: left; }
+  .xmas-decor .kicker {
+    font-family: var(--font-ui);
+    font-weight: 800;
+    font-size: 0.8rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--xmas-gold);
+  }
+  html[data-theme='light'] .xmas-decor .kicker { color: var(--xmas-red-600); }
+  .xmas-decor h2 { font-size: 3.4rem; line-height: 1; margin: 0.6rem 0 0.8rem; font-weight: 700; }
+  .xmas-decor h2 span { color: var(--econet-cyan); }
+  html[data-theme='light'] .xmas-decor h2 span { color: var(--econet-blue); }
+  .xmas-decor p { font-family: var(--font-ui); font-size: 1.05rem; opacity: 0.85; line-height: 1.5; margin: 0; }
+  .xmas-decor .loop { display: grid; gap: 14px; }
+  .xmas-decor .loop div {
+    display: grid; grid-template-columns: 76px 1fr; gap: 14px; align-items: start;
+    padding: 16px 18px; border-radius: 18px;
+    background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(6px);
+  }
+  html[data-theme='light'] .xmas-decor .loop div { background: rgba(255, 255, 255, 0.7); border-color: rgba(11, 37, 63, 0.1); }
+  .xmas-decor .loop b { font-size: 1.25rem; color: var(--xmas-gold); }
+  html[data-theme='light'] .xmas-decor .loop b { color: var(--xmas-red-600); }
+  .xmas-decor .loop span { font-family: var(--font-ui); font-size: 0.95rem; line-height: 1.45; opacity: 0.9; }
+}
+
+/* ---- Baubles (decorative) ---- */
+.xmas-bauble {
+  position: absolute;
+  width: var(--s, 34px);
+  height: var(--s, 34px);
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 30%, #fff 0 8%, var(--c, #e92230) 30%, rgba(0, 0, 0, 0.35) 100%);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+}
+.xmas-bauble::before {
+  content: '';
+  position: absolute;
+  left: 50%; top: -6px;
+  width: 10px; height: 7px;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  background: linear-gradient(#ffe08a, #c9971f);
+}
+.xmas-bauble::after {
+  content: '';
+  position: absolute;
+  left: 50%; bottom: 100%;
+  width: 1.5px; height: var(--cord, 40px);
+  transform: translate(-50%, -6px);
+  background: rgba(255, 224, 138, 0.7);
+}
+
+/* Campaign popups supply their own festive surface — drop the default panel frame */
+[role='dialog']:has([data-xmas-pop]) {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+  border-radius: var(--r-xl);
+}
+/* Keep the backdrop grid track from growing to the popup's max-content width */
+div:has(> [role='dialog'] [data-xmas-pop]) {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+}

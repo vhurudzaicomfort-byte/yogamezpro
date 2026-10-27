@@ -20,6 +20,7 @@ const Legal = lazy(() => import('./pages/Legal').then((m) => ({ default: m.Legal
 const Faq = lazy(() => import('./pages/Faq').then((m) => ({ default: m.Faq })));
 const HowTo = lazy(() => import('./pages/HowTo').then((m) => ({ default: m.HowTo })));
 const Privacy = lazy(() => import('./pages/Privacy').then((m) => ({ default: m.Privacy })));
+const BeatTheBoss = lazy(() => import('./campaign/Campaign').then((m) => ({ default: m.BeatTheBoss })));
 const NotFound = lazy(() => import('./pages/NotFound').then((m) => ({ default: m.NotFound })));
 
 function Fallback() {
@@ -53,6 +54,7 @@ export function App() {
           <Route path="/faq" element={<Faq />} />
           <Route path="/how-to" element={<HowTo />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/beat-the-boss" element={<BeatTheBoss />} />
         </Route>
 
         <Route path="/404" element={<NotFound />} />

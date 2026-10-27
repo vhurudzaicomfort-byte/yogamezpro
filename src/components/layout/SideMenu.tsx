@@ -21,6 +21,7 @@ const PRIMARY: Dest[] = [
   { label: 'Profile', icon: 'user', to: '/profile' },
   { label: 'Leaderboard', icon: 'flag', to: '/leaderboard' },
   { label: 'Prizes', icon: 'gift', to: '/prizes' },
+  { label: 'Beat the Boss', icon: 'trophy', to: '/beat-the-boss' },
 ];
 
 const SECONDARY: Dest[] = [
